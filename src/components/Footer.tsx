@@ -106,7 +106,7 @@ export default function Footer() {
 
       <div className="px-8 py-6 border-t border-slate-300 dark:border-slate-800 flex justify-center items-center">
         <span className="text-slate-500 text-[13px]">
-          Copyright © 2026 | Powered by KCA
+          Copyright © 2026 | Powered by <Link href="/" className="no-underline" style={{ textDecoration: 'none' }}>KCA</Link>
         </span>
       </div>
     </footer>

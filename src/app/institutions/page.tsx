@@ -32,6 +32,7 @@ export default function InstitutionsPage() {
               className="w-full h-full object-cover"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwP_wJHdXTnMLZsVzyUFgRtT-EqyFU5lUc1aUxlz4usaCVBdu9kYuzOIXQbogktDtZYpX1UrdsQJ3o4mqMkMibbgZk4iLzL0DtOxCcdxIY-XE_8VfIMi6QVAC7UZJAht8LKh_P3JecEolrymKy2chrgtJOrxXTJsgC5W9tyDOFHmez1Qfgyokyfz8_NfEmxd-Ht87N_pzgG5Wu-J1t74fYOvx4D-gbLSD4y8ab_YyHoOOqdOiFslno5FB_pwGDQtxqqYvPoWWzoQUx"
               fill
+              sizes="100vw"
               unoptimized
             />
           </div>
@@ -62,6 +63,7 @@ export default function InstitutionsPage() {
                 src="/images/institutions/1.jpg" 
                 alt="Institution Activity 1" 
                 fill 
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-110" 
               />
             </div>
@@ -70,6 +72,7 @@ export default function InstitutionsPage() {
                 src="/images/institutions/2.jpg" 
                 alt="Institution Activity 2" 
                 fill 
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-110" 
               />
             </div>
