@@ -1,53 +1,87 @@
-import Image from "next/image";
-
 export const metadata = {
-  title: "Events | Kids Career Academy",
-  description: "Stay updated with Kids Career Academy events and competitions.",
+  title: "Events Gallery | Kids Career Academy",
+  description: "Explore the gallery of events and competitions at Kids Career Academy.",
 };
-
-const galleryImg = "https://lh3.googleusercontent.com/aida-public/AB6AXuDed6vuNxpeju7saPmOaWkhL6Gspws7ZXaYa26b8IwbWEmqD_W9sQoUmY6lxP1QLIdg1ok_HRfy_-5fM-XKMEo_qU1YBsuamd6jOzkqSDdrzMxlpSwC4ZybhDJxpZgXCzSIDD34pczq7wLmPorw5P3KL_ww0cDPiMZuH_JIUs5lq2ySC8-NEkb9vzUca7-6cosJWO5jzp-0u0knMbAT4CzLAtcCYClnHSY6M0kdiQo1DovQExcwDCR7YwnGA43mRPtuaQ-P4uOJ4uHm";
 
 export default function EventsPage() {
   return (
-    <main className="pt-32">
-      <section className="px-8 max-w-screen-2xl mx-auto mb-32">
-        <div className="relative rounded-xl overflow-hidden min-h-[500px] flex items-center bg-primary-dim">
-          <Image
-            className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA09gpVm4KpiierESF2Ing7yvCWhgClL9m4fB-9LUnfYJdaArNU1p9J02edyr9nA_51aK-H0x04bwBY_MKMx7RIUz0CcxGYSAxZJ9GHN4k9s6SZEpgYiaWO48owPi9v7UfejkQsuRYhH0ymkG95oXBom9paO6OmzmSwe3eg5WwxTWKNUiaoso7lJy6ymsLQwm-zzVdCQ0-H0tOEOlNy51nEw3S2jji5LFv4V27YX6iJaVtHzTqGA3Z2mDrSRJAjvhMptLCK949LiSmx"
-            alt="Events banner"
-            fill
-            unoptimized
-          />
-          <div className="relative z-10 p-12 md:p-24 max-w-3xl">
-            <span className="bg-secondary text-on-secondary px-4 py-1.5 rounded-full text-sm font-semibold mb-6 inline-block">
-              REGISTRATION OPEN
-            </span>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
-              Join the next National Math Olympiad
-            </h1>
-            <button className="bg-secondary-container text-on-secondary-container px-8 py-4 rounded-full font-bold text-lg">
-              Register Now
-            </button>
+    <main className="pt-32 pb-32 bg-slate-50/50">
+      <section className="px-8 max-w-4xl mx-auto space-y-16">
+        
+        {/* Handwriting Banner Placeholder */}
+        <div className="w-full aspect-[16/7] md:aspect-[3/1] bg-slate-900 flex items-center justify-center rounded-xl overflow-hidden shadow-md border border-outline-variant/20 relative group">
+           <div className="absolute inset-0 flex items-end justify-start p-6 md:p-8 bg-gradient-to-t from-black/80 to-transparent z-10">
+              <span className="text-yellow-400 font-extrabold text-2xl md:text-4xl drop-shadow-md">Unlock the art of Handwriting</span>
+           </div>
+           <span className="material-symbols-outlined text-white/10 text-9xl absolute">image</span>
+        </div>
+
+        {/* COMMUNICATIVE ENGLISH */}
+        <div className="space-y-6">
+          <h2 className="text-lg md:text-xl font-bold uppercase text-slate-800 tracking-wider">Communicative English</h2>
+          <div className="space-y-4">
+             {/* 3 stacked images */}
+             <div className="w-full h-64 md:h-80 bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline">
+                <span className="material-symbols-outlined text-4xl opacity-30">image</span>
+             </div>
+             <div className="w-full h-64 md:h-80 bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline">
+                <span className="material-symbols-outlined text-4xl opacity-30">image</span>
+             </div>
+             <div className="w-full h-64 md:h-80 bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline">
+                <span className="material-symbols-outlined text-4xl opacity-30">image</span>
+             </div>
           </div>
         </div>
-      </section>
 
-      <section className="px-8 max-w-screen-2xl mx-auto mb-32">
-        <h2 className="text-4xl font-bold mb-12">Photo Gallery</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {Array.from({ length: 8 }, (_, i) => (
-            <div key={i} className="relative h-[300px] rounded-lg overflow-hidden">
-              <Image
-                className="w-full h-full object-cover hover:opacity-90 transition-opacity"
-                src={galleryImg}
-                alt={`Event photo ${i + 1}`}
-                fill
-                unoptimized
-              />
+        {/* AN IDEAL PARENTING */}
+        <div className="space-y-6">
+          <h2 className="text-lg md:text-xl font-bold uppercase text-slate-800 tracking-wider">An Ideal Parenting</h2>
+          <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="aspect-[4/3] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-3xl opacity-30">image</span></div>
+              <div className="aspect-[4/3] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-3xl opacity-30">image</span></div>
+              <div className="aspect-[4/3] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-3xl opacity-30">image</span></div>
             </div>
-          ))}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="aspect-[16/9] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-4xl opacity-30">image</span></div>
+              <div className="aspect-[16/9] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-4xl opacity-30">image</span></div>
+            </div>
+          </div>
         </div>
+
+        {/* FEEP */}
+        <div className="space-y-6">
+          <h2 className="text-lg md:text-xl font-bold uppercase text-slate-800 tracking-wider">FEEP</h2>
+          <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="aspect-[4/3] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-3xl opacity-30">image</span></div>
+              <div className="aspect-[4/3] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-3xl opacity-30">image</span></div>
+              <div className="aspect-[4/3] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-3xl opacity-30">image</span></div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="aspect-[16/9] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-4xl opacity-30">image</span></div>
+              <div className="aspect-[16/9] bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline"><span className="material-symbols-outlined text-4xl opacity-30">image</span></div>
+            </div>
+          </div>
+        </div>
+
+        {/* SEEP */}
+        <div className="space-y-6">
+          <h2 className="text-lg md:text-xl font-bold uppercase text-slate-800 tracking-wider">SEEP</h2>
+          <div className="space-y-4">
+             {/* 3 stacked images */}
+             <div className="w-full h-64 md:h-80 bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline">
+                <span className="material-symbols-outlined text-4xl opacity-30">image</span>
+             </div>
+             <div className="w-full h-64 md:h-80 bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline">
+                <span className="material-symbols-outlined text-4xl opacity-30">image</span>
+             </div>
+             <div className="w-full h-64 md:h-80 bg-white rounded-xl overflow-hidden shadow-sm border border-outline-variant/20 flex items-center justify-center text-outline">
+                <span className="material-symbols-outlined text-4xl opacity-30">image</span>
+             </div>
+          </div>
+        </div>
+        
       </section>
     </main>
   );

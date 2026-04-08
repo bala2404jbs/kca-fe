@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export const metadata = {
-  title: "AIP | Kids Career Academy",
+  title: "An Ideal Parent | Kids Career Academy",
   description: "An Ideal Parent (AIP) - improve the social and emotional development of young children.",
 };
 
@@ -36,7 +36,7 @@ export default function AIPProgramPage() {
               Parenting Program
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold text-on-primary mb-6 tracking-tight">
-              AIP
+              An Ideal Parent
             </h1>
             <p className="text-xl text-on-primary/90 mb-8 leading-relaxed">
               Modifying parenting attitudes and behaviors is a central focus of this parenting program designed to improve the social and emotional development of young children. The child-parent relationship has a major influence on most aspects of child development. When optimal, parenting skills and behaviors have a positive impact on children&apos;s self-esteem, school achievement, cognitive development and behavior.

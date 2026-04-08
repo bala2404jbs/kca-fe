@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export const metadata = {
-  title: "FEEP | Kids Career Academy",
+  title: "Faculty Efficiency Enhancement Program | Kids Career Academy",
   description: "Faculty Efficiency Enhancement Program (FEEP) - empower educators with better presentation and stress management skills.",
 };
 
@@ -39,7 +39,7 @@ export default function FEEPProgramPage() {
               Faculty Development
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold text-on-primary mb-6 tracking-tight">
-              FEEP
+              Faculty Efficiency Enhancement Program
             </h1>
             <p className="text-xl text-on-primary/90 mb-8 leading-relaxed">
               Faculties are to be equipped with some training in order to make them deal with the rapid changes and shifting paradigms in education without which chances are teaching is often reduced to faculties presenting their understanding of the subject simply by one way lecturing. FDP&apos;s began in 1975, Mr.Jerry gaff conceptualized faculty development program to improve the teacher&apos;s personal development, instructional development, professional development and an organizational development.

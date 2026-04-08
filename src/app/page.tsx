@@ -30,22 +30,46 @@ const advantages = [
 
 const programs = [
   {
-    title: "Abacus Mastery",
-    desc: "Lightning-fast calculation speed and focus.",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBXKHEsOxlN0gv3iAZEQM8088-YuInEXYRjGvFeoprghFJqh2RaPl4SxyGfb4UIbtUBLfqTtzXUYzF-M-wjcZGNwq3yz4q1LhOGpfqHDRowQEXXpQP77br4AbxfcBmX3LRAnA9Xehpx4arTIuUmMHY_fjT-auJ6dWyY0qfIi5FLXKfw7Pq2iNRkINwRoUqbsEYX4NSlTDv9R4fhvOn-HmTJvnY_jlWHCEQyqdmhCnhL7xRfH-l84jZc1brOE7zAx7aeqDQFdQSLiWpl",
-    path: "/program/abacus",
+    title: "CBDP",
+    desc: "Complete Brain Development Program.",
+    img: "/images/programs/cbdp/1.png",
+    path: "/program/cbdp",
+  },
+  {
+    title: "FEEP",
+    desc: "Faculty Efficiency Enhancement Program.",
+    img: "/images/programs/feep/1.png",
+    path: "/program/feep",
+  },
+  {
+    title: "SEEP",
+    desc: "Student Efficiency Enhancement Program.",
+    img: "/images/programs/seep/1.jpg",
+    path: "/program/seep",
+  },
+  {
+    title: "AIP",
+    desc: "An Ideal Parent.",
+    img: "/images/programs/aip/1.jpg",
+    path: "/program/aip",
   },
   {
     title: "Vedic Maths",
-    desc: "Ancient techniques for modern math speed.",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAC_JohirZtjkq_C6eLJqA02oj4Pl5I_hFxknaoz9V_a85ygTV8TvzpaJoi_5icG5ZwopCV3nRDBD8dl-p898eR_-JuYFxya8j0EPa7P4U22bjhhdcKcXSVcwulymRiNiuXKihL23SzFncWLE0iHvTE0vURTD-3zU4lPpjh3ZslMziFkST2AmwTX3HQx6yitF2Y_cWgUqfi2K6XJghmKN_aCKWWhT7gVXpAvIyz8nMhSRJj6nsWhkxkreHCE9a5Nc3FPgCauoNuNmH1",
-    path: "#",
+    desc: "Ancient techniques for modern math speed and accuracy.",
+    img: "/images/programs/vedic-maths/1.png",
+    path: "/program/vedic-maths",
   },
   {
-    title: "STEM & Robotics",
-    desc: "Building and coding the future today.",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAIEfFzTLvzh29XOAowcHAQs6LGkx4bzx4zOuU5_Sb2VuzMuiy09g9lRu33id3fd6XeqvI2jXJYXow4nAVebcCeNh5plC36iVjsFeVffQBgxTrgpZl8M187F059cwxLpw5jWhyptwE6BCN8dtXjTnpjYSmITs4dYPx9Xz1PTCYNyYFcJisa-wAI8mrmPA3NwzzBFqvnieFrW9cJyAZ0mLx2m67G3HFHHwlAQaqOrQQALQrLJLnJdqfBJN9T_2jBWib7mAy33Ki37BJp",
-    path: "#",
+  title: "Handwriting",
+    desc: "Unlock the art of beautiful script and legibility.",
+    img: "/images/programs/handwriting/1.jpg",
+    path: "/program/handwriting",
+  },
+  {
+    title: "Abacus",
+    desc: "Lightning-fast calculation speed and focus.",
+    img: "/images/programs/abacus/1.jpg",
+    path: "/program/abacus",
   },
 ];
 
@@ -111,8 +135,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Introduction / About Us */}
+      <section className="bg-white py-20 px-8">
+        <div className="max-w-screen-xl mx-auto space-y-6">
+          <h2 className="text-2xl text-slate-800 tracking-wide font-medium">Welcome to Kids Career Academy</h2>
+          <div className="space-y-6 text-slate-700 leading-relaxed text-sm lg:text-base text-justify">
+            <p>
+              Kids Career Academy was established in 2010 with a singular mission: to nurture and develop the diverse skills of children, helping them grow into confident, capable individuals. Our academy focuses on fostering strong analytical, logical, listening, and learning abilities, along with creativity, imagination, and memory retention. We believe in cultivating these essential skills to ensure children excel in both academic and personal spheres.
+            </p>
+            <p>
+              Our approach goes beyond traditional academics. At Kids Career Academy, we emphasize the development of life skills such as problem solving, decision-making, teamwork, leadership, and motivation. Our professionally designed curriculum is tailored to meet the evolving demands of a competitive world, preparing children to succeed in all aspects of life.
+            </p>
+            <p>
+              Much like preparing the soil is essential for healthy growth, we prepare young minds for the journey of education. Our world-class curriculum enhances sensory processing, brain development, and memory retention, providing a solid foundation for intellectual growth. Additionally, we prioritize the physical and emotional well-being of each child, ensuring a holistic approach to education.
+            </p>
+            <p>
+              Kids Career Academy is committed to delivering value-driven education that unlocks the full potential of every child. Through our comprehensive programs, we aim to foster not only intellectual development but also the personal growth necessary to succeed in today&apos;s fast-paced world.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Academy Advantage */}
-      <section className="bg-surface-container-low py-32 mt-16">
+      <section className="bg-surface-container-low py-32 mt-8">
         <div className="max-w-screen-2xl mx-auto px-8">
           <div className="text-center mb-20 space-y-4">
             <h2 className="text-4xl font-headline font-bold">
@@ -188,6 +233,80 @@ export default function HomePage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-surface py-16">
+        <div className="max-w-3xl mx-auto px-8 text-center space-y-6">
+          <div className="bg-white px-8 py-10 rounded-xl border-b-2 border-outline-variant/10 relative">
+            <div className="flex items-center gap-4 mb-6 justify-center">
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-200">
+                <img src="https://ui-avatars.com/api/?name=John&background=random" alt="John" />
+              </div>
+              <span className="font-bold text-lg text-slate-800">John</span>
+            </div>
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed text-center">
+              The abacus class has greatly improved my child&apos;s focus and mental math skills. They now solve calculations quickly and enjoy learning through this fun, hands-on approach.
+            </p>
+            <div className="flex justify-center gap-2 mt-8">
+              <div className="w-2 h-2 rounded-full bg-[#f3123c]"></div>
+              <div className="w-2 h-2 rounded-full bg-slate-200"></div>
+              <div className="w-2 h-2 rounded-full bg-slate-200"></div>
+              <div className="w-2 h-2 rounded-full bg-slate-200"></div>
+              <div className="w-2 h-2 rounded-full bg-slate-200"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Counter */}
+      <section className="py-20 text-center">
+        <div className="max-w-screen-2xl mx-auto px-8">
+          <h2 className="text-5xl md:text-6xl font-black text-[#f3123c] mb-4 tracking-tight">29,863</h2>
+          <p className="text-xl md:text-2xl text-slate-700">website Visitor</p>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="bg-white py-20 pb-32">
+        <div className="max-w-screen-2xl mx-auto px-8 flex flex-col items-center text-center">
+          <h2 className="text-5xl font-black text-[#f3123c] mb-16 tracking-tight">Contact Us</h2>
+          
+          <div className="flex flex-col items-center mb-10">
+            <span className="material-symbols-outlined text-[32px] text-[#2ebd59] mb-3">location_on</span>
+            <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>Our Office Address</h3>
+            <p className="text-slate-800 text-sm max-w-xl">120, Sakthipuram Kumaran Nagar, beside Sakthi real estate, Doctors Colony, Salem, Tamil Nadu 636002</p>
+          </div>
+
+          <div className="flex flex-col items-center mb-10">
+            <span className="material-symbols-outlined text-[32px] text-[#2ebd59] mb-3">mail</span>
+            <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>General Enquires</h3>
+            <p className="text-slate-800 text-sm max-w-xl">kidscareeracademy@gmail.com</p>
+          </div>
+
+          <div className="flex flex-col items-center mb-16">
+            <span className="material-symbols-outlined text-[32px] text-[#2ebd59] mb-3">call</span>
+            <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>Call Us</h3>
+            <p className="text-slate-800 text-sm max-w-xl">+91 - 80720 04265</p>
+            
+            <div className="flex flex-col items-center gap-2 mt-10">
+              <span className="material-symbols-outlined text-[32px] text-[#2ebd59]">location_on</span>
+              <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none" style={{fontFamily: "Great Vibes, cursive"}}>Location</h3>
+            </div>
+          </div>
+
+          <div className="w-full max-w-5xl h-[350px] relative">
+            <iframe 
+               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.039234125866!2d78.11718017531818!3d11.69123898851944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1cd0aaaaaab%3A0x7d6a7ac27c2f0f4a!2s120%2C%20Sakthipuram%20Kumaran%20Nagar%2C%20Doctors%20Colony%2C%20Kuranguchavadi%2C%20Salem%2C%20Tamil%20Nadu%20636004!5e0!3m2!1sen!2sin!4v1712534567890!5m2!1sen!2sin" 
+               width="100%" 
+               height="100%" 
+               style={{ border: 0 }} 
+               allowFullScreen 
+               loading="lazy" 
+               referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
         </div>
       </section>
     </div>

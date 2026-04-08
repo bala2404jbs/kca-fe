@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export const metadata = {
-  title: "SEEP | Kids Career Academy",
+  title: "Student Efficiency Enhancement Program | Kids Career Academy",
   description: "Student Efficiency Enhancement Program (SEEP) - fulfill your child's needs for all-round development.",
 };
 
@@ -39,7 +39,7 @@ export default function SEEPProgramPage() {
               Student Efficiency
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold text-on-primary mb-6 tracking-tight">
-              SEEP
+              Student Efficiency Enhancement Program
             </h1>
             <p className="text-xl text-on-primary/90 mb-8 leading-relaxed">
               Invariably every parent&apos;s expectation of their loved ones is no more than intellect, morale and health. Teachers being a second parent, naturally they too can not have expectations beyond this. In order to achieve the all above a child requires a tailor made program to fulfill their needs for all round development in the context of their sedentary lifestyle. Which attributes to causing core problems like lack of concentration, lack of memory, lack of creativity, inability to manage emotions, addiction to electronic gadgets and addiction to fast food.

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export const metadata = {
-  title: "CBDP | Kids Career Academy",
+  title: "Complete Brain Development Program | Kids Career Academy",
   description: "Complete Brain Development Program (CBDP) - unlock your child's full potential.",
 };
 
@@ -42,7 +42,7 @@ export default function CBDPProgramPage() {
               Complete Brain Development
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold text-on-primary mb-6 tracking-tight">
-              CBDP
+              Complete Brain Development Program
             </h1>
             <p className="text-xl text-on-primary/90 mb-8 leading-relaxed">
               COMPLETE BRAIN DEVELOPMENT PROGRAM is the complete scientific methodology, indigenously developed by the team of experts also time tested over the past decade for presenting kids with sharp senses, better left-brain processing speed, Activation of the right brain, long term memory Enhanced morality and improved health consciousness.
