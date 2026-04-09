@@ -1,9 +1,9 @@
-import Image from "next/image";
+'use client';
 
-export const metadata = {
-  title: "Handwriting | Kids Career Academy",
-  description: "Handwriting Improvement Program - develop fine motor skills and obtain good handwriting.",
-};
+import { useState, useEffect } from 'react';
+import Image from "next/image";
+import { getPageMedia, getMediaUrl } from '../../../lib/api';
+import LeadForm from '../../../components/LeadForm';
 
 const benefitsPoints = [
   "Beautiful handwriting.",
@@ -13,6 +13,11 @@ const benefitsPoints = [
 ];
 
 export default function HandwritingProgramPage() {
+  const [media, setMedia] = useState<any>(null);
+
+  useEffect(() => {
+    getPageMedia('program-handwriting').then(setMedia).catch(console.error);
+  }, []);
   return (
     <main className="pt-24 pb-32">
       <section className="max-w-screen-2xl mx-auto px-8 mb-16">
@@ -21,9 +26,9 @@ export default function HandwritingProgramPage() {
             <Image
               alt="Handwriting concept"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9gdCQoswRaoGhXCH-8dyWdt4ouYa1AxSpt8f0PSw09ecj0FIDNCVGdxRUvmpMyTE1u0QZPpgw_ZBu3RM9_xqcBPF7UwAo3LY3oG3RGNLxpjMDfzgu9fXJmBE3DLgonlXeCkepXFASQAS6Py-0PtwnJVVE520daBJoswR-8L6qhQSzED1yXQz0mrZ7QMZ8TIdJunGzrdMZYIQbwovI7Xw-isqRX-j6d55mHYZNb6DWv3ZoQnNYgXwksCEvW27a3Rimz-vkSE0RicCb"
-              fill
-              unoptimized
+              src={getMediaUrl(media?.heroImageUrl) || "https://lh3.googleusercontent.com/aida-public/AB6AXuA9gdCQoswRaoGhXCH-8dyWdt4ouYa1AxSpt8f0PSw09ecj0FIDNCVGdxRUvmpMyTE1u0QZPpgw_ZBu3RM9_xqcBPF7UwAo3LY3oG3RGNLxpjMDfzgu9fXJmBE3DLgonlXeCkepXFASQAS6Py-0PtwnJVVE520daBJoswR-8L6qhQSzED1yXQz0mrZ7QMZ8TIdJunGzrdMZYIQbwovI7Xw-isqRX-j6d55mHYZNb6DWv3ZoQnNYgXwksCEvW27a3Rimz-vkSE0RicCb"}
+              fill unoptimized
+              priority
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent z-10"></div>
@@ -74,18 +79,11 @@ export default function HandwritingProgramPage() {
               Gallery
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/handwriting/1.jpg" alt="Handwriting Activity 1" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/handwriting/2.jpg" alt="Handwriting Activity 2" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/handwriting/3.png" alt="Handwriting Activity 3" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/handwriting/4.png" alt="Handwriting Activity 4" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
+              {(media?.galleryImages?.length > 0 ? media.galleryImages : ["/images/programs/handwriting/1.jpg", "/images/programs/handwriting/2.jpg", "/images/programs/handwriting/3.png", "/images/programs/handwriting/4.png"]).slice(0, 4).map((img: string, idx: number) => (
+                <div key={idx} className="relative h-64 rounded-xl overflow-hidden shadow-md group">
+                  <Image src={getMediaUrl(img)} alt={`Handwriting Activity ${idx + 1}`} fill unoptimized className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -94,28 +92,19 @@ export default function HandwritingProgramPage() {
               Videos
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/IZnVh5z2uDs"
-                  title="Handwriting Video 1"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/rKEYOTW7KYU"
-                  title="Handwriting Video 2"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              {(media?.youtubeVideoIds?.length > 0 ? media.youtubeVideoIds : ["IZnVh5z2uDs", "rKEYOTW7KYU"]).slice(0, 2).map((vid: string, idx: number) => (
+                <div key={idx} className="aspect-video rounded-xl overflow-hidden shadow-md">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${vid}`}
+                    title={`Handwriting Video ${idx + 1}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ))}
             </div>
           </div>
           
@@ -182,31 +171,8 @@ export default function HandwritingProgramPage() {
         </div>
 
         <aside className="lg:col-span-4">
-          <div className="sticky top-28 bg-surface-container-lowest p-8 rounded-xl shadow-2xl border border-outline-variant/10">
-            <h3 className="text-2xl font-bold mb-2">Book a Demo</h3>
-            <p className="text-on-surface-variant mb-6 text-sm">
-              Experience our teaching method for free.
-            </p>
-            <form className="space-y-4">
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Student Name"
-                type="text"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Child Age"
-                type="number"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="WhatsApp Number"
-                type="tel"
-              />
-              <button type="button" className="w-full btn-gradient text-on-primary py-4 rounded-full font-bold shadow-lg">
-                Request Callback
-              </button>
-            </form>
+          <div className="sticky top-28">
+            <LeadForm programName="Handwriting" />
           </div>
         </aside>
       </div>

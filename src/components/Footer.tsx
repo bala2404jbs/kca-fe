@@ -1,16 +1,32 @@
+'use client';
+
 import Link from "next/link";
+import { useState } from "react";
+import { subscribeNewsletter } from "../lib/api";
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubscribe = async () => {
+    if (!email) return;
+    setSubStatus('loading');
+    try {
+      await subscribeNewsletter(email);
+      setSubStatus('success');
+      setEmail('');
+    } catch {
+      setSubStatus('error');
+    }
+  };
+
   return (
     <footer className="bg-[#f0f1f3] dark:bg-slate-900 w-full mt-32 border-t border-slate-200 dark:border-slate-800">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-8 py-16 max-w-screen-2xl mx-auto">
         <div className="space-y-6">
-          <div className="text-2xl font-black text-[#002366] dark:text-[#8ea6f0]">
-            Kids Career Academy
-          </div>
+          <div className="text-2xl font-black text-[#002366] dark:text-[#8ea6f0]">Kids Career Academy</div>
           <p className="text-slate-500 text-sm leading-relaxed">
-            Cultivating the next generation of pioneers, dreamers, and leaders
-            through immersive career discovery and expert mentorship.
+            Cultivating the next generation of pioneers, dreamers, and leaders through immersive career discovery and expert mentorship.
           </p>
           <div className="flex gap-4">
             <a href="#" className="w-10 h-10 rounded-full bg-[#3b5998] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-md shadow-[#3b5998]/30" title="Facebook">
@@ -29,78 +45,52 @@ export default function Footer() {
         </div>
 
         <div>
-          <h5 className="font-bold text-[#002366] dark:text-[#8ea6f0] mb-6 uppercase tracking-wider text-xs">
-            Programs
-          </h5>
+          <h5 className="font-bold text-[#002366] dark:text-[#8ea6f0] mb-6 uppercase tracking-wider text-xs">Programs</h5>
           <ul className="space-y-4 text-slate-500 text-sm">
-            <li>
-              <Link href="/program/abacus" className="hover:text-primary transition-all">
-                Abacus Mastery
-              </Link>
-            </li>
-            <li>
-              <a className="hover:text-primary transition-all" href="#">
-                Robotics &amp; AI
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-primary transition-all" href="#">
-                Creative Arts
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-primary transition-all" href="#">
-                Vedic Maths
-              </a>
-            </li>
+            <li><Link href="/program/abacus" className="hover:text-primary transition-all">Abacus Mastery</Link></li>
+            <li><a className="hover:text-primary transition-all" href="#">Robotics &amp; AI</a></li>
+            <li><a className="hover:text-primary transition-all" href="#">Creative Arts</a></li>
+            <li><a className="hover:text-primary transition-all" href="#">Vedic Maths</a></li>
           </ul>
         </div>
 
         <div>
-          <h5 className="font-bold text-[#002366] dark:text-[#8ea6f0] mb-6 uppercase tracking-wider text-xs">
-            Quick Links
-          </h5>
+          <h5 className="font-bold text-[#002366] dark:text-[#8ea6f0] mb-6 uppercase tracking-wider text-xs">Quick Links</h5>
           <ul className="space-y-4 text-slate-500 text-sm">
-            <li>
-              <Link href="/about" className="hover:text-primary transition-all">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link href="/franchise" className="hover:text-primary transition-all">
-                Franchise
-              </Link>
-            </li>
-            <li>
-              <Link href="/teacher-training" className="hover:text-primary transition-all">
-                Teacher Training
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:text-primary transition-all">
-                Contact
-              </Link>
-            </li>
+            <li><Link href="/about" className="hover:text-primary transition-all">About Us</Link></li>
+            <li><Link href="/franchise" className="hover:text-primary transition-all">Franchise</Link></li>
+            <li><Link href="/teacher-training" className="hover:text-primary transition-all">Teacher Training</Link></li>
+            <li><Link href="/contact" className="hover:text-primary transition-all">Contact</Link></li>
           </ul>
         </div>
 
         <div>
-          <h5 className="font-bold text-[#002366] dark:text-[#8ea6f0] mb-6 uppercase tracking-wider text-xs">
-            Stay Connected
-          </h5>
-          <p className="text-slate-500 text-sm mb-6">
-            Join our newsletter to get latest educational updates.
-          </p>
-          <div className="flex flex-col gap-3">
-            <input
-              className="bg-surface border-none rounded-full px-6 py-3 focus:ring-2 focus:ring-primary outline-none text-sm"
-              placeholder="Enter your email"
-              type="email"
-            />
-            <button className="bg-primary text-on-primary rounded-full px-6 py-3 font-bold text-sm">
-              Subscribe
-            </button>
-          </div>
+          <h5 className="font-bold text-[#002366] dark:text-[#8ea6f0] mb-6 uppercase tracking-wider text-xs">Stay Connected</h5>
+          <p className="text-slate-500 text-sm mb-6">Join our newsletter to get latest educational updates.</p>
+          {subStatus === 'success' ? (
+            <p className="text-green-600 text-sm font-bold flex items-center gap-2">
+              <span className="material-symbols-outlined text-base">check_circle</span>
+              You&apos;re subscribed!
+            </p>
+          ) : (
+            <div className="flex flex-col gap-3">
+              <input
+                className="bg-surface border-none rounded-full px-6 py-3 focus:ring-2 focus:ring-primary outline-none text-sm"
+                placeholder="Enter your email"
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+              {subStatus === 'error' && <p className="text-red-500 text-xs px-2">Subscription failed. Try again.</p>}
+              <button
+                onClick={handleSubscribe}
+                disabled={subStatus === 'loading'}
+                className="bg-primary text-on-primary rounded-full px-6 py-3 font-bold text-sm disabled:opacity-60"
+              >
+                {subStatus === 'loading' ? 'Subscribing...' : 'Subscribe'}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

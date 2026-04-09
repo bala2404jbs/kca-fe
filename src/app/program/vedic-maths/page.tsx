@@ -1,9 +1,9 @@
-import Image from "next/image";
+'use client';
 
-export const metadata = {
-  title: "Vedic Maths | Kids Career Academy",
-  description: "Vedic Maths Program - solve complex math problems quickly and accurately.",
-};
+import { useState, useEffect } from 'react';
+import Image from "next/image";
+import { getPageMedia, getMediaUrl } from '../../../lib/api';
+import LeadForm from '../../../components/LeadForm';
 
 const benefitsPoints = [
   "Promotes time saving in all the type of examinations.",
@@ -13,6 +13,11 @@ const benefitsPoints = [
 ];
 
 export default function VedicMathsProgramPage() {
+  const [media, setMedia] = useState<any>(null);
+
+  useEffect(() => {
+    getPageMedia('program-vedic-maths').then(setMedia).catch(console.error);
+  }, []);
   return (
     <main className="pt-24 pb-32">
       <section className="max-w-screen-2xl mx-auto px-8 mb-16">
@@ -21,9 +26,9 @@ export default function VedicMathsProgramPage() {
             <Image
               alt="Vedic Maths Concept"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS328JTRtJwck_oZrzzs75e2E0NZAIYydPT-HBpyhw4ppx84jal2gdEiz7PPnXbQUGRPqbN1aj96hOVAjRTvJEsGsdHNXFthWlPiXsmVnP11UYPg2ZINTdTFLWDFGb23s84o8BNYOK6OcGu2O8H6tfD6e-iUtip8_mmK2lRwQas3N2cVLkgZ1zPrdtjTBq3NQrX9WJpdMtu6JQ6rUapP5Ia1-RV7LSMlNtgYghsxzZj88p8I_GIdK23pwnpwByy3icGcvY6_ezJXW7"
-              fill
-              unoptimized
+              src={getMediaUrl(media?.heroImageUrl) || "https://lh3.googleusercontent.com/aida-public/AB6AXuDS328JTRtJwck_oZrzzs75e2E0NZAIYydPT-HBpyhw4ppx84jal2gdEiz7PPnXbQUGRPqbN1aj96hOVAjRTvJEsGsdHNXFthWlPiXsmVnP11UYPg2ZINTdTFLWDFGb23s84o8BNYOK6OcGu2O8H6tfD6e-iUtip8_mmK2lRwQas3N2cVLkgZ1zPrdtjTBq3NQrX9WJpdMtu6JQ6rUapP5Ia1-RV7LSMlNtgYghsxzZj88p8I_GIdK23pwnpwByy3icGcvY6_ezJXW7"}
+              fill unoptimized
+              priority
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent z-10"></div>
@@ -72,18 +77,11 @@ export default function VedicMathsProgramPage() {
               Gallery
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/vedic-maths/1.png" alt="Vedic Maths Activity 1" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/vedic-maths/2.jpg" alt="Vedic Maths Activity 2" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/vedic-maths/3.jpg" alt="Vedic Maths Activity 3" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/vedic-maths/4.jpg" alt="Vedic Maths Activity 4" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
+              {(media?.galleryImages?.length > 0 ? media.galleryImages : ["/images/programs/vedic-maths/1.png", "/images/programs/vedic-maths/2.jpg", "/images/programs/vedic-maths/3.jpg", "/images/programs/vedic-maths/4.jpg"]).slice(0, 4).map((img: string, idx: number) => (
+                <div key={idx} className="relative h-64 rounded-xl overflow-hidden shadow-md group">
+                  <Image src={getMediaUrl(img)} alt={`Vedic Maths Activity ${idx + 1}`} fill unoptimized className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -92,28 +90,19 @@ export default function VedicMathsProgramPage() {
               Videos
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/0G0grJyAIlY"
-                  title="Vedic Maths Video 1"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/0qXKVzvveTM"
-                  title="Vedic Maths Video 2"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              {(media?.youtubeVideoIds?.length > 0 ? media.youtubeVideoIds : ["0G0grJyAIlY", "0qXKVzvveTM"]).slice(0, 2).map((vid: string, idx: number) => (
+                <div key={idx} className="aspect-video rounded-xl overflow-hidden shadow-md">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${vid}`}
+                    title={`Vedic Maths Video ${idx + 1}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ))}
             </div>
           </div>
           
@@ -180,31 +169,8 @@ export default function VedicMathsProgramPage() {
         </div>
 
         <aside className="lg:col-span-4">
-          <div className="sticky top-28 bg-surface-container-lowest p-8 rounded-xl shadow-2xl border border-outline-variant/10">
-            <h3 className="text-2xl font-bold mb-2">Book a Demo</h3>
-            <p className="text-on-surface-variant mb-6 text-sm">
-              Experience our teaching method for free.
-            </p>
-            <form className="space-y-4">
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Parent Name"
-                type="text"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Child Age"
-                type="number"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="WhatsApp Number"
-                type="tel"
-              />
-              <button type="button" className="w-full btn-gradient text-on-primary py-4 rounded-full font-bold shadow-lg">
-                Request Callback
-              </button>
-            </form>
+          <div className="sticky top-28">
+            <LeadForm programName="Vedic Maths" />
           </div>
         </aside>
       </div>

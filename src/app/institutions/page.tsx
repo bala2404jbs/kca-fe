@@ -1,9 +1,10 @@
-import Image from "next/image";
+'use client';
 
-export const metadata = {
-  title: "Educational Institutions | Kids Career Academy",
-  description: "Enhance your school's reputation and student performance with our curriculum and training.",
-};
+import { useState, useEffect } from 'react';
+import Image from "next/image";
+import { createInstitution, getPageMedia, getMediaUrl } from '../../lib/api';
+
+
 
 const schoolBenefits = [
   "Comparatively higher pass out percentage of the student's due to their enriched analytical, logical, listening, learning skills and intelligence guessing.",
@@ -22,6 +23,21 @@ const enrollReasons = [
 ];
 
 export default function InstitutionsPage() {
+  const [form, setForm] = useState({ institutionName: '', contactPerson: '', phone: '', email: '' });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [media, setMedia] = useState<any>(null);
+
+  useEffect(() => {
+    getPageMedia('institutions').then(setMedia).catch(console.error);
+  }, []);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); setStatus('loading');
+    try { await createInstitution(form); setStatus('success'); }
+    catch (err: any) { setStatus('error'); setErrorMsg(err.message || 'Failed. Try again.'); }
+  };
   return (
     <main className="pt-24 pb-32">
       <section className="max-w-screen-2xl mx-auto px-8 mb-16">
@@ -30,10 +46,10 @@ export default function InstitutionsPage() {
             <Image
               alt="Students in classroom"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwP_wJHdXTnMLZsVzyUFgRtT-EqyFU5lUc1aUxlz4usaCVBdu9kYuzOIXQbogktDtZYpX1UrdsQJ3o4mqMkMibbgZk4iLzL0DtOxCcdxIY-XE_8VfIMi6QVAC7UZJAht8LKh_P3JecEolrymKy2chrgtJOrxXTJsgC5W9tyDOFHmez1Qfgyokyfz8_NfEmxd-Ht87N_pzgG5Wu-J1t74fYOvx4D-gbLSD4y8ab_YyHoOOqdOiFslno5FB_pwGDQtxqqYvPoWWzoQUx"
-              fill
+              src={getMediaUrl(media?.heroImageUrl) || "https://lh3.googleusercontent.com/aida-public/AB6AXuBwP_wJHdXTnMLZsVzyUFgRtT-EqyFU5lUc1aUxlz4usaCVBdu9kYuzOIXQbogktDtZYpX1UrdsQJ3o4mqMkMibbgZk4iLzL0DtOxCcdxIY-XE_8VfIMi6QVAC7UZJAht8LKh_P3JecEolrymKy2chrgtJOrxXTJsgC5W9tyDOFHmez1Qfgyokyfz8_NfEmxd-Ht87N_pzgG5Wu-J1t74fYOvx4D-gbLSD4y8ab_YyHoOOqdOiFslno5FB_pwGDQtxqqYvPoWWzoQUx"}
+              fill unoptimized
               sizes="100vw"
-              unoptimized
+              priority
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent z-10"></div>
@@ -58,24 +74,17 @@ export default function InstitutionsPage() {
         <div className="lg:col-span-8 space-y-16">
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="relative h-72 rounded-xl overflow-hidden shadow-md group">
-              <Image 
-                src="/images/institutions/1.jpg" 
-                alt="Institution Activity 1" 
-                fill 
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-110" 
-              />
-            </div>
-            <div className="relative h-72 rounded-xl overflow-hidden shadow-md group">
-              <Image 
-                src="/images/institutions/2.jpg" 
-                alt="Institution Activity 2" 
-                fill 
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-110" 
-              />
-            </div>
+            {(media?.galleryImages?.length > 0 ? media.galleryImages : ["/images/institutions/1.jpg", "/images/institutions/2.jpg"]).slice(0, 2).map((img: string, idx: number) => (
+              <div key={idx} className="relative h-72 rounded-xl overflow-hidden shadow-md group">
+                <Image 
+                  src={getMediaUrl(img)} 
+                  alt={`Institution Activity ${idx + 1}`} 
+                  fill unoptimized 
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110" 
+                />
+              </div>
+            ))}
           </div>
 
           <div>
@@ -144,39 +153,57 @@ export default function InstitutionsPage() {
         </div>
 
         <aside className="lg:col-span-4">
-          <div className="sticky top-28 bg-surface-container-lowest p-8 rounded-xl shadow-2xl border border-outline-variant/10">
+          <div className="sticky top-28 bg-white p-8 rounded-2xl shadow-2xl border border-outline-variant/10">
             <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-6">
                <span className="material-symbols-outlined text-primary text-2xl">handshake</span>
             </div>
-            <h3 className="text-2xl font-bold mb-2 text-[#002366]">Partner With Us</h3>
-            <p className="text-on-surface-variant mb-8 text-sm">
+            <h3 className="text-2xl font-bold mb-2 text-slate-800">Partner With Us</h3>
+            <p className="text-slate-500 mb-8 text-sm">
               Implement our proven curriculum in your institution today.
             </p>
-            <form className="space-y-4">
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Institution Name"
-                type="text"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Contact Person"
-                type="text"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Contact Number"
-                type="tel"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Email Address"
-                type="email"
-              />
-              <button type="button" className="w-full btn-gradient text-on-primary py-4 rounded-full font-bold shadow-lg mt-4 shadow-primary/25">
-                Submit Lead
-              </button>
-            </form>
+            {status === 'success' ? (
+              <div className="py-12 text-center space-y-4">
+                <span className="material-symbols-outlined text-5xl text-green-500">check_circle</span>
+                <p className="font-bold text-green-800 text-lg">Partnership request sent!</p>
+                <p className="text-green-600 text-sm">We will be in touch with you shortly.</p>
+                <button onClick={() => setStatus('idle')} className="text-green-700 font-semibold hover:underline mt-4">Send another inquiry</button>
+              </div>
+            ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+               <div className="space-y-1">
+                 <label className="text-[11px] font-bold text-slate-500 uppercase px-1">Institution Name</label>
+                 <input required name="institutionName" value={form.institutionName} onChange={handleChange}
+                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                   placeholder="e.g. Salem Public School" type="text" />
+               </div>
+               <div className="space-y-1">
+                 <label className="text-[11px] font-bold text-slate-500 uppercase px-1">Contact Person</label>
+                 <input required name="contactPerson" value={form.contactPerson} onChange={handleChange}
+                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                   placeholder="Your Name" type="text" />
+               </div>
+               <div className="space-y-1">
+                 <label className="text-[11px] font-bold text-slate-500 uppercase px-1">Phone Number</label>
+                 <input required name="phone" value={form.phone} onChange={handleChange}
+                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                   placeholder="+91" type="tel" />
+               </div>
+               <div className="space-y-1">
+                 <label className="text-[11px] font-bold text-slate-500 uppercase px-1">Email Address</label>
+                 <input required name="email" value={form.email} onChange={handleChange}
+                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                   placeholder="email@example.com" type="email" />
+               </div>
+               {status === 'error' && <p className="text-red-500 text-xs font-medium px-1">{errorMsg}</p>}
+               <button type="submit" disabled={status === 'loading'} className="w-full bg-primary text-white py-4 rounded-full font-bold shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all disabled:opacity-70 mt-4 flex items-center justify-center gap-2">
+                 {status === 'loading' ? (
+                   <>
+                     <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                     Submitting...
+                   </>
+                 ) : 'Submit Partnership Inquiry'}
+               </button>
+             </form>)}
           </div>
         </aside>
       </div>

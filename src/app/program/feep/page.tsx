@@ -1,9 +1,9 @@
-import Image from "next/image";
+'use client';
 
-export const metadata = {
-  title: "Faculty Efficiency Enhancement Program | Kids Career Academy",
-  description: "Faculty Efficiency Enhancement Program (FEEP) - empower educators with better presentation and stress management skills.",
-};
+import { useState, useEffect } from 'react';
+import Image from "next/image";
+import { getPageMedia, getMediaUrl } from '../../../lib/api';
+import LeadForm from '../../../components/LeadForm';
 
 const benefitsPoints = [
   "A need of an hour program.",
@@ -17,6 +17,11 @@ const benefitsPoints = [
 ];
 
 export default function FEEPProgramPage() {
+  const [media, setMedia] = useState<any>(null);
+
+  useEffect(() => {
+    getPageMedia('program-feep').then(setMedia).catch(console.error);
+  }, []);
   return (
     <main className="pt-24 pb-32">
       <section className="max-w-screen-2xl mx-auto px-8 mb-16">
@@ -25,9 +30,9 @@ export default function FEEPProgramPage() {
             <Image
               alt="Faculty engaging in teaching"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwP_wJHdXTnMLZsVzyUFgRtT-EqyFU5lUc1aUxlz4usaCVBdu9kYuzOIXQbogktDtZYpX1UrdsQJ3o4mqMkMibbgZk4iLzL0DtOxCcdxIY-XE_8VfIMi6QVAC7UZJAht8LKh_P3JecEolrymKy2chrgtJOrxXTJsgC5W9tyDOFHmez1Qfgyokyfz8_NfEmxd-Ht87N_pzgG5Wu-J1t74fYOvx4D-gbLSD4y8ab_YyHoOOqdOiFslno5FB_pwGDQtxqqYvPoWWzoQUx"
-              fill
-              unoptimized
+              src={getMediaUrl(media?.heroImageUrl) || "https://lh3.googleusercontent.com/aida-public/AB6AXuBwP_wJHdXTnMLZsVzyUFgRtT-EqyFU5lUc1aUxlz4usaCVBdu9kYuzOIXQbogktDtZYpX1UrdsQJ3o4mqMkMibbgZk4iLzL0DtOxCcdxIY-XE_8VfIMi6QVAC7UZJAht8LKh_P3JecEolrymKy2chrgtJOrxXTJsgC5W9tyDOFHmez1Qfgyokyfz8_NfEmxd-Ht87N_pzgG5Wu-J1t74fYOvx4D-gbLSD4y8ab_YyHoOOqdOiFslno5FB_pwGDQtxqqYvPoWWzoQUx"}
+              fill unoptimized
+              priority
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent z-10"></div>
@@ -76,12 +81,11 @@ export default function FEEPProgramPage() {
               Gallery
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/feep/1.png" alt="FEEP Activity 1" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/feep/2.jpg" alt="FEEP Activity 2" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
+              {(media?.galleryImages?.length > 0 ? media.galleryImages : ["/images/programs/feep/1.png", "/images/programs/feep/2.jpg"]).slice(0, 2).map((img: string, idx: number) => (
+                <div key={idx} className="relative h-64 rounded-xl overflow-hidden shadow-md group">
+                  <Image src={getMediaUrl(img)} alt={`FEEP Activity ${idx + 1}`} fill unoptimized className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -90,28 +94,19 @@ export default function FEEPProgramPage() {
               Videos
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/z45BqBmSKNQ"
-                  title="FEEP Video 1"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/dwOgWf-FWSE"
-                  title="FEEP Video 2"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              {(media?.youtubeVideoIds?.length > 0 ? media.youtubeVideoIds : ["z45BqBmSKNQ", "dwOgWf-FWSE"]).slice(0, 2).map((vid: string, idx: number) => (
+                <div key={idx} className="aspect-video rounded-xl overflow-hidden shadow-md">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${vid}`}
+                    title={`FEEP Video ${idx + 1}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ))}
             </div>
           </div>
           
@@ -178,31 +173,12 @@ export default function FEEPProgramPage() {
         </div>
 
         <aside className="lg:col-span-4">
-          <div className="sticky top-28 bg-surface-container-lowest p-8 rounded-xl shadow-2xl border border-outline-variant/10">
-            <h3 className="text-2xl font-bold mb-2">Join the Program</h3>
-            <p className="text-on-surface-variant mb-6 text-sm">
-              Register yourself or your school/faculty.
-            </p>
-            <form className="space-y-4">
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Name / Institution Name"
-                type="text"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Number of Faculties"
-                type="number"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Contact Number"
-                type="tel"
-              />
-              <button type="button" className="w-full btn-gradient text-on-primary py-4 rounded-full font-bold shadow-lg">
-                Request Callback
-              </button>
-            </form>
+          <div className="sticky top-28">
+            <LeadForm 
+              programName="FEEP" 
+              title="Join the Program"
+              subtitle="Register yourself or your school/faculty."
+            />
           </div>
         </aside>
       </div>

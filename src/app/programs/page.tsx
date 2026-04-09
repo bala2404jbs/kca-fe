@@ -115,7 +115,6 @@ export default function ProgramsPage() {
                 src={p.img}
                 alt={p.title}
                 fill
-                unoptimized
               />
               <div className="absolute top-4 left-4 bg-primary/90 text-on-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
                 {p.cat}

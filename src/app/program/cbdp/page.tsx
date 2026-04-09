@@ -1,9 +1,9 @@
-import Image from "next/image";
+'use client';
 
-export const metadata = {
-  title: "Complete Brain Development Program | Kids Career Academy",
-  description: "Complete Brain Development Program (CBDP) - unlock your child's full potential.",
-};
+import { useState, useEffect } from 'react';
+import Image from "next/image";
+import { getPageMedia, getMediaUrl } from '../../../lib/api';
+import LeadForm from '../../../components/LeadForm';
 
 const benefitsPoints = [
   "Sharpens all the sensory organs for an efficient transmission of any data to the brain.",
@@ -20,6 +20,11 @@ const benefitsPoints = [
 ];
 
 export default function CBDPProgramPage() {
+  const [media, setMedia] = useState<any>(null);
+
+  useEffect(() => {
+    getPageMedia('program-cbdp').then(setMedia).catch(console.error);
+  }, []);
   return (
     <main className="pt-24 pb-32">
       <section className="max-w-screen-2xl mx-auto px-8 mb-16">
@@ -28,9 +33,9 @@ export default function CBDPProgramPage() {
             <Image
               alt="Child engaged in learning"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ9TZunrRKoQo6Pu8GOLW3ceRCwv9wbuLHtgOnCr6mzu_AJjZfoaJhwGOdb9YnbgkYNMaOjGkPPrbFi215Qmct9376Uz0pQWRfDgRqyvw-DRdeuwiGP6YVJ1t8mssoaqeDNihkXFytgFGg3FL32STrAZJAh3vDJOQx7bsDmtoH1RS2vH0TxpNHSouFImslPqgikP-83IOtqxHK7OHlO2W_Hv0x5Tj-j8cCSxcphzXzRr0EYLdx110DYw8RV5ifP15bOdOpBbeMNT4I"
-              fill
-              unoptimized
+              src={getMediaUrl(media?.heroImageUrl) || "https://lh3.googleusercontent.com/aida-public/AB6AXuBQ9TZunrRKoQo6Pu8GOLW3ceRCwv9wbuLHtgOnCr6mzu_AJjZfoaJhwGOdb9YnbgkYNMaOjGkPPrbFi215Qmct9376Uz0pQWRfDgRqyvw-DRdeuwiGP6YVJ1t8mssoaqeDNihkXFytgFGg3FL32STrAZJAh3vDJOQx7bsDmtoH1RS2vH0TxpNHSouFImslPqgikP-83IOtqxHK7OHlO2W_Hv0x5Tj-j8cCSxcphzXzRr0EYLdx110DYw8RV5ifP15bOdOpBbeMNT4I"}
+              fill unoptimized
+              priority
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent z-10"></div>
@@ -79,18 +84,11 @@ export default function CBDPProgramPage() {
               Gallery
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/cbdp/1.png" alt="CBDP Activity 1" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/cbdp/2.png" alt="CBDP Activity 2" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/cbdp/3.png" alt="CBDP Activity 3" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/cbdp/4.png" alt="CBDP Activity 4" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
+              {(media?.galleryImages?.length > 0 ? media.galleryImages : ["/images/programs/cbdp/1.png", "/images/programs/cbdp/2.png", "/images/programs/cbdp/3.png", "/images/programs/cbdp/4.png"]).slice(0, 4).map((img: string, idx: number) => (
+                <div key={idx} className="relative h-64 rounded-xl overflow-hidden shadow-md group">
+                  <Image src={getMediaUrl(img)} alt={`CBDP Activity ${idx + 1}`} fill unoptimized className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -99,50 +97,19 @@ export default function CBDPProgramPage() {
               Videos
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/1tIWwivgcAs"
-                  title="CBDP Video 1"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/FZXp48D-b5o"
-                  title="CBDP Video 2"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/Z5312WvdrOc"
-                  title="CBDP Video 3"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/gaRZGkBZeoY"
-                  title="CBDP Video 4"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              {(media?.youtubeVideoIds?.length > 0 ? media.youtubeVideoIds : ["1tIWwivgcAs", "FZXp48D-b5o", "Z5312WvdrOc", "gaRZGkBZeoY"]).slice(0, 4).map((vid: string, idx: number) => (
+                <div key={idx} className="aspect-video rounded-xl overflow-hidden shadow-md">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${vid}`}
+                    title={`CBDP Video ${idx + 1}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ))}
             </div>
           </div>
           
@@ -215,31 +182,8 @@ export default function CBDPProgramPage() {
         </div>
 
         <aside className="lg:col-span-4">
-          <div className="sticky top-28 bg-surface-container-lowest p-8 rounded-xl shadow-2xl border border-outline-variant/10">
-            <h3 className="text-2xl font-bold mb-2">Book a Demo</h3>
-            <p className="text-on-surface-variant mb-6 text-sm">
-              Experience our teaching method for free.
-            </p>
-            <form className="space-y-4">
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Parent Name"
-                type="text"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Child Age"
-                type="number"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="WhatsApp Number"
-                type="tel"
-              />
-              <button type="button" className="w-full btn-gradient text-on-primary py-4 rounded-full font-bold shadow-lg">
-                Request Callback
-              </button>
-            </form>
+          <div className="sticky top-28">
+            <LeadForm programName="CBDP" />
           </div>
         </aside>
       </div>

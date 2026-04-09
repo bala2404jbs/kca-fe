@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -18,6 +18,7 @@ const navItems = [
       { name: "VEDIC MATHS", path: "/program/vedic-maths" },
       { name: "HANDWRITING", path: "/program/handwriting" },
       { name: "ABACUS", path: "/program/abacus" },
+      { name: "COMMUNICATIVE ENGLISH", path: "/program/communicative-english" },
     ],
   },
   { name: "INSTITUTIONS", path: "/institutions" },
@@ -25,14 +26,21 @@ const navItems = [
   { name: "TEACHER TRAINING", path: "/teacher-training" },
   { name: "EVENTS", path: "/events" },
   { name: "CONTACT US", path: "/contact" },
-  { name: "COMMUNICATIVE ENGLISH", path: "/program/communicative-english" },
 ];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    const checkAdmin = () => setIsAdmin(!!localStorage.getItem('admin_token'));
+    checkAdmin();
+    window.addEventListener('auth-change', checkAdmin);
+    return () => window.removeEventListener('auth-change', checkAdmin);
+  }, []);
 
   const isActive = (path: string) => pathname === path || (pathname.includes("/program/") && path === "/programs");
 
@@ -49,25 +57,29 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden xl:flex flex-grow justify-center items-center gap-6 text-[13px] font-semibold tracking-wide">
           {navItems.map((item) => (
-            <div key={item.name} className="relative group">
+            <div key={item.name} className="relative group flex items-center h-full">
               {item.isDropdown ? (
-                <div className="flex items-center cursor-pointer group pb-1">
+                <div className={`flex items-center cursor-pointer group h-full pb-1 border-b-2 transition-all duration-300 ${
+                  isActive(item.path) ? "border-[#046bd2]" : "border-transparent"
+                }`}>
                   <Link
                     href={item.path}
                     className={`${
                       isActive(item.path)
-                        ? "text-[#046bd2] border-b-2 border-[#046bd2]"
-                        : "text-slate-600 hover:text-[#046bd2]"
-                    } transition-all duration-300 uppercase whitespace-nowrap`}
+                        ? "text-[#046bd2]"
+                        : "text-slate-600 group-hover:text-[#046bd2]"
+                    } transition-colors duration-300 uppercase whitespace-nowrap`}
                   >
                     {item.name}
                   </Link>
-                  <span className="material-symbols-outlined ml-1 text-[16px] text-slate-500 group-hover:text-[#046bd2] transition-transform group-hover:rotate-180">
+                  <span className={`material-symbols-outlined ml-1 text-[16px] transition-all duration-300 group-hover:rotate-180 ${
+                    isActive(item.path) ? "text-[#046bd2]" : "text-slate-500 group-hover:text-[#046bd2]"
+                  }`}>
                     expand_more
                   </span>
 
                   {/* Dropdown Menu */}
-                  <div className="absolute top-full left-0 mt-[10px] w-48 bg-white border-t-2 border-[#046bd2] shadow-xl rounded-b-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left flex flex-col z-50">
+                  <div className="absolute top-full left-0 mt-[2px] w-48 bg-white border-t-2 border-[#046bd2] shadow-xl rounded-b-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left flex flex-col z-50">
                     {item.subItems?.map((sub) => (
                       <Link
                         key={sub.name}
@@ -85,8 +97,8 @@ export default function Navbar() {
                   className={`${
                     pathname === item.path
                       ? "text-[#046bd2] border-b-2 border-[#046bd2]"
-                      : "text-slate-600 hover:text-[#046bd2]"
-                  } transition-all duration-300 pb-1 uppercase whitespace-nowrap`}
+                      : "text-slate-600 hover:text-[#046bd2] border-b-2 border-transparent"
+                  } transition-all duration-300 pb-1 uppercase whitespace-nowrap h-full flex items-center`}
                 >
                   {item.name}
                 </Link>
@@ -95,8 +107,16 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
-          <button
+        <div className="flex items-center gap-3">
+          {/* Admin Entry Point */}
+          <Link
+            href={isAdmin ? '/admin/leads' : '/admin/login'}
+            className="hidden xl:flex items-center gap-2 px-4 py-2 rounded-full border-2 border-primary text-primary text-xs font-bold hover:bg-primary hover:text-white transition-all duration-200"
+            title={isAdmin ? 'Go to Admin Dashboard' : 'Admin Login'}
+          >
+            <span className="material-symbols-outlined text-[16px]">{isAdmin ? 'admin_panel_settings' : 'lock'}</span>
+            {isAdmin ? 'Dashboard' : 'Admin'}
+          </Link>          <button
             className="xl:hidden p-2 text-primary"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -148,6 +168,14 @@ export default function Navbar() {
                 )}
               </div>
             ))}
+            <Link
+              href={isAdmin ? '/admin/leads' : '/admin/login'}
+              onClick={() => setIsMenuOpen(false)}
+              className="flex items-center gap-2 mt-2 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold text-base"
+            >
+              <span className="material-symbols-outlined">{isAdmin ? 'admin_panel_settings' : 'lock'}</span>
+              {isAdmin ? 'Admin Dashboard' : 'Admin Login'}
+            </Link>
           </div>
         </div>
       )}

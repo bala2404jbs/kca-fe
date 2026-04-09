@@ -1,5 +1,9 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from "next/link";
 import Image from "next/image";
+import { getPageMedia, getMediaUrl } from '../lib/api';
 
 const advantages = [
   {
@@ -74,6 +78,12 @@ const programs = [
 ];
 
 export default function HomePage() {
+  const [media, setMedia] = useState<any>(null);
+
+  useEffect(() => {
+    getPageMedia('home').then(setMedia).catch(console.error);
+  }, []);
+
   return (
     <div className="pt-24 overflow-hidden">
       {/* Hero Section */}
@@ -111,10 +121,10 @@ export default function HomePage() {
             <Image
               alt="Child learning"
               className="w-full h-[600px] object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjnuhZEkedsdz575yOXs1SidhSjrlqUWPwrdGAWJo8J5NUOLzkw4cL72uny83uJvHurWgrzXpTJP6k6XiXJnQQal4QIYbbTNUs_yCLZIDU9Rcm4-szEeUtm60mjuXz8mCDVX0QS_46rByshmH3wITOrsUvdyEnfDo9SYvfgUjGl4wbcMq8XxCAWdwuFBGnbRFIxLxtE3L6xodvzUUE902t0yQj2bYZevPGb3vpsgGq2_s9tESxSA6AvnSGeqH6MCKAeUmiEdPeCGxG"
+              src={getMediaUrl(media?.heroImageUrl) || "https://lh3.googleusercontent.com/aida-public/AB6AXuAjnuhZEkedsdz575yOXs1SidhSjrlqUWPwrdGAWJo8J5NUOLzkw4cL72uny83uJvHurWgrzXpTJP6k6XiXJnQQal4QIYbbTNUs_yCLZIDU9Rcm4-szEeUtm60mjuXz8mCDVX0QS_46rByshmH3wITOrsUvdyEnfDo9SYvfgUjGl4wbcMq8XxCAWdwuFBGnbRFIxLxtE3L6xodvzUUE902t0yQj2bYZevPGb3vpsgGq2_s9tESxSA6AvnSGeqH6MCKAeUmiEdPeCGxG"}
               width={800}
               height={600}
-              unoptimized
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
           </div>
@@ -216,8 +226,7 @@ export default function HomePage() {
                 alt={p.title}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 src={p.img}
-                fill
-                unoptimized
+                fill unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#000929]/90 via-[#000929]/20 to-transparent p-10 flex flex-col justify-end">
                 <h3 className="text-3xl font-bold text-on-primary mb-2">

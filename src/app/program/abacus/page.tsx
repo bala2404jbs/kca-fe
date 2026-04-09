@@ -1,9 +1,9 @@
-import Image from "next/image";
+'use client';
 
-export const metadata = {
-  title: "Abacus | Kids Career Academy",
-  description: "Abacus Program - develop the skills of solving Arithmetic sums quickly.",
-};
+import { useState, useEffect } from 'react';
+import Image from "next/image";
+import { getPageMedia, getMediaUrl } from '../../../lib/api';
+import LeadForm from '../../../components/LeadForm';
 
 const benefitsPoints = [
   "To incorporate a skill of solving arithmetic sums of any value at par with a calculator.",
@@ -14,6 +14,11 @@ const benefitsPoints = [
 ];
 
 export default function AbacusProgramPage() {
+  const [media, setMedia] = useState<any>(null);
+
+  useEffect(() => {
+    getPageMedia('program-abacus').then(setMedia).catch(console.error);
+  }, []);
   return (
     <main className="pt-24 pb-32">
       <section className="max-w-screen-2xl mx-auto px-8 mb-16">
@@ -22,9 +27,9 @@ export default function AbacusProgramPage() {
             <Image
               alt="Child using an abacus"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp1d97hDWidUcyUy2OjJqLCjmfIqgLG-_wyLoDO39GxXIwZVXk8K7U09KskWBoabMZMK6Lq8ZKUdoyEP7dSMAUdOcyyK9Q5tPqtcOsjrxIYxQcPkpzHJ0qhmwthqOLUz6tq6LXmnPHCMqrGSQB-AocQxuCeiQkvRwBwkjjvKTzWe_Ok4Ncn0wg2HEhFE0uY4h6t5GflPySKUTHsq0p4eFKUpKiZNVPHjfadMjCLpeDXBtwMPw4YWiv-PBdJ3jAxlieI49dggZqw0dP"
-              fill
-              unoptimized
+              src={getMediaUrl(media?.heroImageUrl) || "https://lh3.googleusercontent.com/aida-public/AB6AXuBp1d97hDWidUcyUy2OjJqLCjmfIqgLG-_wyLoDO39GxXIwZVXk8K7U09KskWBoabMZMK6Lq8ZKUdoyEP7dSMAUdOcyyK9Q5tPqtcOsjrxIYxQcPkpzHJ0qhmwthqOLUz6tq6LXmnPHCMqrGSQB-AocQxuCeiQkvRwBwkjjvKTzWe_Ok4Ncn0wg2HEhFE0uY4h6t5GflPySKUTHsq0p4eFKUpKiZNVPHjfadMjCLpeDXBtwMPw4YWiv-PBdJ3jAxlieI49dggZqw0dP"}
+              fill unoptimized
+              priority
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent z-10"></div>
@@ -73,18 +78,11 @@ export default function AbacusProgramPage() {
               Gallery
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/abacus/1.jpg" alt="Abacus Activity 1" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/abacus/2.jpg" alt="Abacus Activity 2" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/abacus/3.png" alt="Abacus Activity 3" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
-              <div className="relative h-64 rounded-xl overflow-hidden shadow-md group">
-                <Image src="/images/programs/abacus/4.png" alt="Abacus Activity 4" fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-              </div>
+              {(media?.galleryImages?.length > 0 ? media.galleryImages : ["/images/programs/abacus/1.jpg", "/images/programs/abacus/2.jpg", "/images/programs/abacus/3.png", "/images/programs/abacus/4.png"]).slice(0, 4).map((img: string, idx: number) => (
+                <div key={idx} className="relative h-64 rounded-xl overflow-hidden shadow-md group">
+                  <Image src={getMediaUrl(img)} alt={`Abacus Activity ${idx + 1}`} fill unoptimized className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -93,28 +91,19 @@ export default function AbacusProgramPage() {
               Videos
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/HqHNWbPKMCs"
-                  title="Abacus Video 1"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/v65z2M1-R_I"
-                  title="Abacus Video 2"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              {(media?.youtubeVideoIds?.length > 0 ? media.youtubeVideoIds : ["HqHNWbPKMCs", "v65z2M1-R_I"]).slice(0, 2).map((vid: string, idx: number) => (
+                <div key={idx} className="aspect-video rounded-xl overflow-hidden shadow-md">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${vid}`}
+                    title={`Abacus Video ${idx + 1}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ))}
             </div>
           </div>
           
@@ -181,31 +170,8 @@ export default function AbacusProgramPage() {
         </div>
 
         <aside className="lg:col-span-4">
-          <div className="sticky top-28 bg-surface-container-lowest p-8 rounded-xl shadow-2xl border border-outline-variant/10">
-            <h3 className="text-2xl font-bold mb-2">Book a Demo</h3>
-            <p className="text-on-surface-variant mb-6 text-sm">
-              Experience our teaching method for free.
-            </p>
-            <form className="space-y-4">
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Student Name"
-                type="text"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Child Age"
-                type="number"
-              />
-              <input
-                className="w-full bg-surface-container-highest border-none rounded-md px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-                placeholder="WhatsApp Number"
-                type="tel"
-              />
-              <button type="button" className="w-full btn-gradient text-on-primary py-4 rounded-full font-bold shadow-lg">
-                Request Callback
-              </button>
-            </form>
+          <div className="sticky top-28">
+            <LeadForm programName="Abacus" />
           </div>
         </aside>
       </div>
