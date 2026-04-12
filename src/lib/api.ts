@@ -1,4 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://kca-be.onrender.com';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export function getMediaUrl(url: string) {
   if (!url) return '';
@@ -43,6 +43,20 @@ export async function uploadImage(file: File | Blob, token: string) {
 }
 
 // ── PAGE MEDIA ────────────────────────────────────────────────────────
+export async function getAllPageMedia() {
+  try {
+    const res = await fetch(`${API_URL}/page-media`);
+    if (!res.ok) {
+      if (res.status === 404) return [];
+      throw new Error('Failed to fetch all page media');
+    }
+    return res.json();
+  } catch (err) {
+    console.error('Error fetching all page media:', err);
+    return [];
+  }
+}
+
 export async function getPageMedia(page: string) {
   const res = await fetch(`${API_URL}/page-media/${encodeURIComponent(page)}`);
   if (!res.ok) { if (res.status === 404) return null; throw new Error('Failed to fetch page media'); }

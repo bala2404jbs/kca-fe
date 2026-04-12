@@ -5,24 +5,27 @@ import { updatePageMedia, getPageMedia, getMediaUrl } from '../../../lib/api';
 import { FileUpload } from '../../../components/FileUpload';
 import { useAdmin } from '../AdminContext';
 
-const PAGES = [
+const STATIC_PAGES = [
+  { id: 'home', label: 'Home Page' },
   { id: 'franchise', label: 'Franchise Page' },
   { id: 'teacher-training', label: 'Teacher Training Page' },
-  { id: 'program-abacus', label: 'Abacus Program' },
-  { id: 'program-handwriting', label: 'Handwriting Program' },
-  { id: 'program-vedic-maths', label: 'Vedic Maths Program' },
-  { id: 'program-aip', label: 'An Ideal Parent (AIP)' },
-  { id: 'program-cbdp', label: 'Child Behavior Development (CBDP)' },
-  { id: 'program-feep', label: 'Effective Early Parenting (FEEP)' },
-  { id: 'program-seep', label: 'Exceptional Parenting (SEEP)' },
-  { id: 'program-english', label: 'Communicative English' },
   { id: 'institutions', label: 'Educational Institutions Page' },
   { id: 'events', label: 'Events Page' },
-  { id: 'home', label: 'Home Page' }
+  // Program Group
+  { id: 'program-cbdp', label: 'CBDP', group: 'Programs' },
+  { id: 'program-english', label: 'Communicative English', group: 'Programs' },
+  { id: 'program-creative-arts', label: 'Creative Arts', group: 'Programs' },
+  { id: 'program-abacus', label: 'Abacus', group: 'Programs' },
+  { id: 'program-vedic-maths', label: 'Vedic Maths', group: 'Programs' },
+  { id: 'program-aip', label: 'AIP', group: 'Programs' },
+  { id: 'program-seep', label: 'SEEP', group: 'Programs' },
+  { id: 'program-feep', label: 'FEEP', group: 'Programs' },
+  { id: 'program-robotics-ai', label: 'Robotics & AI', group: 'Programs' },
 ];
 
 export default function MediaAdminPage() {
-  const [selectedPage, setSelectedPage] = useState(PAGES[0].id);
+  const [pages, setPages] = useState(STATIC_PAGES);
+  const [selectedPage, setSelectedPage] = useState(STATIC_PAGES[0].id);
   const [heroImage, setHeroImage] = useState('');
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [youtubeIds, setYoutubeIds] = useState<string>('');
@@ -33,6 +36,21 @@ export default function MediaAdminPage() {
 
   useEffect(() => {
     setToken(localStorage.getItem('admin_token') || '');
+    // Fetch all existing page media to populate custom topics
+    import('../../../lib/api').then(({ getAllPageMedia }) => {
+      getAllPageMedia().then(all => {
+        const customOnes = all
+          .filter((m: any) => !STATIC_PAGES.find(p => p.id === m.page))
+          .map((m: any) => ({
+             id: m.page,
+             label: m.page.startsWith('event-') 
+               ? m.page.replace('event-', '').replace(/-/g, ' ').toUpperCase() 
+               : m.page,
+             group: m.page.startsWith('event-') ? 'Events' : 'Custom'
+          }));
+        setPages([...STATIC_PAGES, ...customOnes]);
+      });
+    });
   }, []);
 
   useEffect(() => {
@@ -95,14 +113,74 @@ export default function MediaAdminPage() {
       <div className="mb-8 p-6 bg-white rounded-xl shadow-sm border border-outline-variant/30">
         <label className="block text-sm font-bold text-slate-700 mb-2">Target Page Module</label>
         <select 
-          value={selectedPage} 
-          onChange={e => setSelectedPage(e.target.value)}
-          className="w-full md:w-1/2 p-3 border border-outline-variant/50 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none"
+          value={pages.find(p => p.id === selectedPage)?.group === 'Events' ? 'events' : selectedPage} 
+          onChange={e => {
+            const val = e.target.value;
+            if (val === 'events') {
+              setSelectedPage('events');
+            } else {
+              setSelectedPage(val);
+            }
+          }}
+          className="w-full md:w-1/2 p-3 border border-outline-variant/50 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none bg-slate-50"
         >
-          {PAGES.map(p => (
-            <option key={p.id} value={p.id}>{p.label}</option>
-          ))}
+          <optgroup label="Main Pages">
+             {pages.filter((p: any) => !p.group || p.id === 'events').map((p: any) => (
+               <option key={p.id} value={p.id}>{p.label}</option>
+             ))}
+          </optgroup>
+          <optgroup label="Academic Programs">
+             {pages.filter((p: any) => p.group === 'Programs').map((p: any) => (
+               <option key={p.id} value={p.id}>{p.label}</option>
+             ))}
+          </optgroup>
         </select>
+
+        {/* Sub-selection for Events */}
+        {(selectedPage === 'events' || pages.find(p => p.id === selectedPage)?.group === 'Events') && (
+          <div className="mt-6 pt-6 border-t border-dashed border-outline-variant/30 animate-in fade-in slide-in-from-top-2 duration-500">
+             <label className="block text-xs font-bold text-primary mb-3 uppercase tracking-widest">Event Topic Manager</label>
+             <div className="flex flex-wrap gap-2 mb-4">
+                <button 
+                  onClick={() => setSelectedPage('events')}
+                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${selectedPage === 'events' ? 'bg-primary text-white shadow-md' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}`}
+                >
+                  General Events Page
+                </button>
+                {pages.filter((p: any) => p.group === 'Events' && p.id !== 'events').map((p: any) => (
+                  <button 
+                    key={p.id}
+                    onClick={() => setSelectedPage(p.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${selectedPage === p.id ? 'bg-primary text-white shadow-md' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+                <button 
+                  onClick={() => {
+                    const name = prompt('Enter New Event Topic Name (e.g. Science Fair)');
+                    if (name) {
+                      const id = 'event-' + name.toLowerCase().replace(/\s+/g, '-');
+                      if (!pages.find(p => p.id === id)) {
+                         setPages(prev => [...prev, { id, label: name.toUpperCase(), group: 'Events' }]);
+                      }
+                      setSelectedPage(id);
+                    }
+                  }}
+                  className="px-4 py-2 rounded-full text-sm font-bold bg-secondary/10 text-secondary border border-secondary/20 hover:bg-secondary/20 transition-all flex items-center gap-1"
+                >
+                  <span className="material-symbols-outlined text-sm">add</span>
+                  Add New Topic
+                </button>
+             </div>
+             {selectedPage.startsWith('event-') && (
+               <div className="px-4 py-2 bg-primary/5 rounded-lg border border-primary/10 inline-flex items-center gap-2">
+                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                 <span className="text-xs font-bold text-primary">Editing Event: {pages.find(p => p.id === selectedPage)?.label}</span>
+               </div>
+             )}
+          </div>
+        )}
       </div>
 
       <div className="space-y-8">

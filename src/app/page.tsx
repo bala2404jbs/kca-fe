@@ -40,40 +40,34 @@ const programs = [
     path: "/program/cbdp",
   },
   {
-    title: "FEEP",
-    desc: "Faculty Efficiency Enhancement Program.",
-    img: "/images/programs/feep/1.png",
-    path: "/program/feep",
+    title: "Communicative English",
+    desc: "Master the art of effective communication and public speaking.",
+    img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=2070",
+    path: "/program/communicative-english",
   },
   {
-    title: "SEEP",
-    desc: "Student Efficiency Enhancement Program.",
-    img: "/images/programs/seep/1.jpg",
-    path: "/program/seep",
-  },
-  {
-    title: "AIP",
-    desc: "An Ideal Parent.",
-    img: "/images/programs/aip/1.jpg",
-    path: "/program/aip",
-  },
-  {
-    title: "Vedic Maths",
-    desc: "Ancient techniques for modern math speed and accuracy.",
-    img: "/images/programs/vedic-maths/1.png",
-    path: "/program/vedic-maths",
-  },
-  {
-  title: "Handwriting",
-    desc: "Unlock the art of beautiful script and legibility.",
-    img: "/images/programs/handwriting/1.jpg",
-    path: "/program/handwriting",
+    title: "Creative Arts",
+    desc: "Nurturing imagination, building confidence, and developing artistic skills.",
+    img: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=2070",
+    path: "/program/creative-arts",
   },
   {
     title: "Abacus",
     desc: "Lightning-fast calculation speed and focus.",
-    img: "/images/programs/abacus/1.jpg",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC6uTEfOHzNv2r8b37Xy_EPF1_ztTbEccp27P26ZeFLN4E7MUPA6TnbbkXwvuEW9NOdQX57hEVExKvdn3piyHIFUru8Pda9xsqxbXYw8ZEi50WKOG9WZVUjKzkmMaphBSa0Aek0Q7RgpoaN6ew2ShFesiSYmj34G056rSidMBBa9nrcX4u_UlZMEYQLGToZdOx3y_qDc0QTaKMtvaphRHuXcVw3lV23XkzhV4a9ThCirgJKZe-g54rJMceusSw30TKU7iFCm6qe2TkF",
     path: "/program/abacus",
+  },
+  {
+    title: "Vedic Maths",
+    desc: "Ancient techniques for modern math speed and accuracy.",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDS328JTRtJwck_oZrzzs75e2E0NZAIYydPT-HBpyhw4ppx84jal2gdEiz7PPnXbQUGRPqbN1aj96hOVAjRTvJEsGsdHNXFthWlPiXsmVnP11UYPg2ZINTdTFLWDFGb23s84o8BNYOK6OcGu2O8H6tfD6e-iUtip8_mmK2lRwQas3N2cVLkgZ1zPrdtjTBq3NQrX9WJpdMtu6JQ6rUapP5Ia1-RV7LSMlNtgYghsxzZj88p8I_GIdK23pwnpwByy3icGcvY6_ezJXW7",
+    path: "/program/vedic-maths",
+  },
+  {
+    title: "AIP",
+    desc: "An Ideal Parent program for holistic family growth.",
+    img: "/images/programs/aip/1.jpg",
+    path: "/program/aip",
   },
 ];
 
@@ -90,7 +84,7 @@ export default function HomePage() {
       <section className="max-w-screen-2xl mx-auto px-8 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-8">
           <span className="inline-block px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container text-sm font-semibold">
-            Admissions Open 2024
+            Admissions Open 2026
           </span>
           <h1 className="text-5xl md:text-7xl font-headline font-extrabold tracking-tight text-on-surface leading-tight">
             Empowering Kids for a{" "}
@@ -146,7 +140,7 @@ export default function HomePage() {
       </section>
 
       {/* Introduction / About Us */}
-      <section className="bg-white py-20 px-8">
+      <section className="bg-white py-10 px-8">
         <div className="max-w-screen-xl mx-auto space-y-6">
           <h2 className="text-2xl text-slate-800 tracking-wide font-medium">Welcome to Kids Career Academy</h2>
           <div className="space-y-6 text-slate-700 leading-relaxed text-sm lg:text-base text-justify">
@@ -167,9 +161,9 @@ export default function HomePage() {
       </section>
 
       {/* Academy Advantage */}
-      <section className="bg-surface-container-low py-32 mt-8">
+      <section className="bg-surface-container-low py-16 mt-4">
         <div className="max-w-screen-2xl mx-auto px-8">
-          <div className="text-center mb-20 space-y-4">
+          <div className="text-center mb-10 space-y-4">
             <h2 className="text-4xl font-headline font-bold">
               The Academy Advantage
             </h2>
@@ -200,8 +194,8 @@ export default function HomePage() {
       </section>
 
       {/* Programs Preview */}
-      <section className="py-32 max-w-screen-2xl mx-auto px-8">
-        <div className="flex justify-between items-end mb-16">
+      <section className="py-16 max-w-screen-2xl mx-auto px-8">
+        <div className="flex justify-between items-end mb-8">
           <div className="space-y-4">
             <h2 className="text-5xl font-headline font-bold">Our Programs</h2>
             <p className="text-on-surface-variant">
@@ -246,7 +240,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="bg-surface py-16">
+      <section className="bg-surface py-8">
         <div className="max-w-3xl mx-auto px-8 text-center space-y-6">
           <div className="bg-white px-8 py-10 rounded-xl border-b-2 border-outline-variant/10 relative">
             <div className="flex items-center gap-4 mb-6 justify-center">
@@ -270,7 +264,7 @@ export default function HomePage() {
       </section>
 
       {/* Stats Counter */}
-      <section className="py-20 text-center">
+      <section className="py-8 text-center">
         <div className="max-w-screen-2xl mx-auto px-8">
           <h2 className="text-5xl md:text-6xl font-black text-[#f3123c] mb-4 tracking-tight">29,863</h2>
           <p className="text-xl md:text-2xl text-slate-700">website Visitor</p>
@@ -278,43 +272,64 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section className="bg-white py-20 pb-32">
-        <div className="max-w-screen-2xl mx-auto px-8 flex flex-col items-center text-center">
-          <h2 className="text-5xl font-black text-[#f3123c] mb-16 tracking-tight">Contact Us</h2>
+      <section className="bg-white py-10 pb-16">
+        <div className="max-w-screen-2xl mx-auto px-8">
+          <h2 className="text-5xl font-black text-[#f3123c] mb-8 tracking-tight text-center">Contact Us</h2>
           
-          <div className="flex flex-col items-center mb-10">
-            <span className="material-symbols-outlined text-[32px] text-[#2ebd59] mb-3">location_on</span>
-            <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>Our Office Address</h3>
-            <p className="text-slate-800 text-sm max-w-xl">120, Sakthipuram Kumaran Nagar, beside Sakthi real estate, Doctors Colony, Salem, Tamil Nadu 636002</p>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="space-y-12">
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-[#2ebd59]/10 rounded-full flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-[32px] text-[#2ebd59]">location_on</span>
+                </div>
+                <div>
+                  <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>Our Office Address</h3>
+                  <p className="text-slate-800 text-base max-w-md">120, Sakthipuram Kumaran Nagar, beside Sakthi real estate, Doctors Colony, Salem, Tamil Nadu 636002</p>
+                </div>
+              </div>
 
-          <div className="flex flex-col items-center mb-10">
-            <span className="material-symbols-outlined text-[32px] text-[#2ebd59] mb-3">mail</span>
-            <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>General Enquires</h3>
-            <p className="text-slate-800 text-sm max-w-xl">kidscareeracademy@gmail.com</p>
-          </div>
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-[#2ebd59]/10 rounded-full flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-[32px] text-[#2ebd59]">mail</span>
+                </div>
+                <div>
+                  <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>General Enquires</h3>
+                  <p className="text-slate-800 text-base">kidscareeracademy@gmail.com</p>
+                </div>
+              </div>
 
-          <div className="flex flex-col items-center mb-16">
-            <span className="material-symbols-outlined text-[32px] text-[#2ebd59] mb-3">call</span>
-            <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>Call Us</h3>
-            <p className="text-slate-800 text-sm max-w-xl">+91 - 80720 04265</p>
-            
-            <div className="flex flex-col items-center gap-2 mt-10">
-              <span className="material-symbols-outlined text-[32px] text-[#2ebd59]">location_on</span>
-              <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none" style={{fontFamily: "Great Vibes, cursive"}}>Location</h3>
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-[#2ebd59]/10 rounded-full flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-[32px] text-[#2ebd59]">call</span>
+                </div>
+                <div>
+                  <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>Call Us</h3>
+                  <p className="text-slate-800 text-base">+91 - 80720 04265</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-[#2ebd59]/10 rounded-full flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-[32px] text-[#2ebd59]">directions</span>
+                </div>
+                <div>
+                  <h3 className="text-3xl font-[cursive] text-[#f3123c] leading-none mb-3" style={{fontFamily: "Great Vibes, cursive"}}>Location</h3>
+                  <p className="text-slate-500 text-sm">Find us on Salem, Tamil Nadu</p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="w-full max-w-5xl h-[350px] relative">
-            <iframe 
-               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.039234125866!2d78.11718017531818!3d11.69123898851944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1cd0aaaaaab%3A0x7d6a7ac27c2f0f4a!2s120%2C%20Sakthipuram%20Kumaran%20Nagar%2C%20Doctors%20Colony%2C%20Kuranguchavadi%2C%20Salem%2C%20Tamil%20Nadu%20636004!5e0!3m2!1sen!2sin!4v1712534567890!5m2!1sen!2sin" 
-               width="100%" 
-               height="100%" 
-               style={{ border: 0 }} 
-               allowFullScreen 
-               loading="lazy" 
-               referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <div className="w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl border border-slate-100">
+              <iframe 
+                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.039234125866!2d78.11718017531818!3d11.69123898851944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1cd0aaaaaab%3A0x7d6a7ac27c2f0f4a!2s120%2C%20Sakthipuram%20Kumaran%20Nagar%2C%20Doctors%20Colony%2C%20Kuranguchavadi%2C%20Salem%2C%20Tamil%20Nadu%20636004!5e0!3m2!1sen!2sin!4v1712534567890!5m2!1sen!2sin" 
+                 width="100%" 
+                 height="100%" 
+                 style={{ border: 0 }} 
+                 allowFullScreen 
+                 loading="lazy" 
+                 referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>

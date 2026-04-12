@@ -15,7 +15,7 @@ const stats = [
 export default function AboutPage() {
   return (
     <main className="pt-24 overflow-x-hidden">
-      <section className="relative px-8 py-24 max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="relative px-8 py-12 max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-container/30 text-on-primary-container rounded-full">
             <span className="material-symbols-outlined text-sm">history_edu</span>
@@ -37,7 +37,7 @@ export default function AboutPage() {
         <div className="relative">
           <Image
             className="rounded-xl w-full h-[600px] object-cover shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf4bP7UtyVRX3jT4qL-UWPRCEvwzYnE8rtNF_hgUEF1a1fWR0fRGtfP34ylG3uBkWboWLJbULy8CEtwbMkLr3TSS-mMCyqIs3tqlqU0p5qa0_jGzcTp5MISR1bMzeIfgK25xaEmSh49a4GvP5jU4loiBUjZlNGe6fHrrDARuBob-cYX-lRcPTZImFXJBrpK3QwUFlikSmHc6nhRCHCct4BP8pqMCAHX0IB8IPKdmGoEaxt_bG5VMk5PPaDSCaQRKlFBtLEObZAMACD"
+            src="/aboutus.png"
             alt="About Kids Career Academy"
             width={600}
             height={600}
@@ -46,7 +46,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-surface-container-low py-24 my-32">
+      <section className="bg-surface-container-low py-12 my-16">
         <div className="max-w-screen-2xl mx-auto px-8 grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
           {stats.map((stat, i) => (
             <div key={i} className="space-y-2">

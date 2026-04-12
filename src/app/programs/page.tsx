@@ -3,6 +3,27 @@ import Image from "next/image";
 
 const programs = [
   {
+    title: "CBDP",
+    age: "14+ yrs",
+    cat: "Career",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBQ9TZunrRKoQo6Pu8GOLW3ceRCwv9wbuLHtgOnCr6mzu_AJjZfoaJhwGOdb9YnbgkYNMaOjGkPPrbFi215Qmct9376Uz0pQWRfDgRqyvw-DRdeuwiGP6YVJ1t8mssoaqeDNihkXFytgFGg3FL32STrAZJAh3vDJOQx7bsDmtoH1RS2vH0TxpNHSouFImslPqgikP-83IOtqxHK7OHlO2W_Hv0x5Tj-j8cCSxcphzXzRr0EYLdx110DYw8RV5ifP15bOdOpBbeMNT4I",
+    path: "/program/cbdp",
+  },
+  {
+    title: "Communicative English",
+    age: "All Age Groups",
+    cat: "English",
+    img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=2070",
+    path: "/program/communicative-english",
+  },
+  {
+    title: "Creative Arts",
+    age: "5-15 yrs",
+    cat: "Creative",
+    img: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=2070",
+    path: "/program/creative-arts",
+  },
+  {
     title: "Abacus",
     age: "5-12 yrs",
     cat: "Maths",
@@ -17,25 +38,11 @@ const programs = [
     path: "/program/vedic-maths",
   },
   {
-    title: "Handwriting",
-    age: "6-14 yrs",
-    cat: "Creative",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA9gdCQoswRaoGhXCH-8dyWdt4ouYa1AxSpt8f0PSw09ecj0FIDNCVGdxRUvmpMyTE1u0QZPpgw_ZBu3RM9_xqcBPF7UwAo3LY3oG3RGNLxpjMDfzgu9fXJmBE3DLgonlXeCkepXFASQAS6Py-0PtwnJVVE520daBJoswR-8L6qhQSzED1yXQz0mrZ7QMZ8TIdJunGzrdMZYIQbwovI7Xw-isqRX-j6d55mHYZNb6DWv3ZoQnNYgXwksCEvW27a3Rimz-vkSE0RicCb",
-    path: "/program/handwriting",
-  },
-  {
-    title: "CBDP",
-    age: "14+ yrs",
-    cat: "Career",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBQ9TZunrRKoQo6Pu8GOLW3ceRCwv9wbuLHtgOnCr6mzu_AJjZfoaJhwGOdb9YnbgkYNMaOjGkPPrbFi215Qmct9376Uz0pQWRfDgRqyvw-DRdeuwiGP6YVJ1t8mssoaqeDNihkXFytgFGg3FL32STrAZJAh3vDJOQx7bsDmtoH1RS2vH0TxpNHSouFImslPqgikP-83IOtqxHK7OHlO2W_Hv0x5Tj-j8cCSxcphzXzRr0EYLdx110DYw8RV5ifP15bOdOpBbeMNT4I",
-    path: "/program/cbdp",
-  },
-  {
-    title: "FEEP",
-    age: "6-9 yrs",
-    cat: "English",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBwP_wJHdXTnMLZsVzyUFgRtT-EqyFU5lUc1aUxlz4usaCVBdu9kYuzOIXQbogktDtZYpX1UrdsQJ3o4mqMkMibbgZk4iLzL0DtOxCcdxIY-XE_8VfIMi6QVAC7UZJAht8LKh_P3JecEolrymKy2chrgtJOrxXTJsgC5W9tyDOFHmez1Qfgyokyfz8_NfEmxd-Ht87N_pzgG5Wu-J1t74fYOvx4D-gbLSD4y8ab_YyHoOOqdOiFslno5FB_pwGDQtxqqYvPoWWzoQUx",
-    path: "/program/feep",
+    title: "AIP",
+    age: "12+ yrs",
+    cat: "Tech",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDVepY-EpxGSDd7B3tUsqp6lscmK0JUhEcenIENjoNjvAsYKCO1mxYE_Yjv8YHbOODwBam4-NfAQdp_R5LA7Bu23ib5zy7zJfHqeokLrLvw-g3ePdUjmmsC46oji0RCer-yjEzYGq0zWfe8yt0D3MDAXIq_Syg9eMNze3czer3Fw86JEfzAP9Y5csf40Fl95sj2dxmlhxc4XmOlwUuOyDWtrGa_Men2RPoLAWbzjAaiJlRU8bDFz4BoGjodQ9Jm5RSBnXly_lebSJmN",
+    path: "/program/aip",
   },
   {
     title: "SEEP",
@@ -45,11 +52,18 @@ const programs = [
     path: "/program/seep",
   },
   {
-    title: "AIP",
-    age: "12+ yrs",
+    title: "FEEP",
+    age: "6-9 yrs",
+    cat: "English",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBwP_wJHdXTnMLZsVzyUFgRtT-EqyFU5lUc1aUxlz4usaCVBdu9kYuzOIXQbogktDtZYpX1UrdsQJ3o4mqMkMibbgZk4iLzL0DtOxCcdxIY-XE_8VfIMi6QVAC7UZJAht8LKh_P3JecEolrymKy2chrgtJOrxXTJsgC5W9tyDOFHmez1Qfgyokyfz8_NfEmxd-Ht87N_pzgG5Wu-J1t74fYOvx4D-gbLSD4y8ab_YyHoOOqdOiFslno5FB_pwGDQtxqqYvPoWWzoQUx",
+    path: "/program/feep",
+  },
+  {
+    title: "Robotics & AI",
+    age: "6-16 yrs",
     cat: "Tech",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDVepY-EpxGSDd7B3tUsqp6lscmK0JUhEcenIENjoNjvAsYKCO1mxYE_Yjv8YHbOODwBam4-NfAQdp_R5LA7Bu23ib5zy7zJfHqeokLrLvw-g3ePdUjmmsC46oji0RCer-yjEzYGq0zWfe8yt0D3MDAXIq_Syg9eMNze3czer3Fw86JEfzAP9Y5csf40Fl95sj2dxmlhxc4XmOlwUuOyDWtrGa_Men2RPoLAWbzjAaiJlRU8bDFz4BoGjodQ9Jm5RSBnXly_lebSJmN",
-    path: "/program/aip",
+    img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=2070",
+    path: "/program/robotics-ai",
   },
 ];
 
