@@ -171,9 +171,9 @@ export default function TeacherTrainingPage() {
                  <select required name="specialization" value={form.specialization} onChange={handleChange}
                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-slate-600 appearance-none">
                     <option value="">Select Specialization</option>
-                    <option value="abacus">Abacus Teacher</option>
-                    <option value="vedicmath">Vedic Math Teacher</option>
-                    <option value="handwriting">Handwriting Teacher</option>
+                    <option value="ABACUS">Abacus Teacher</option>
+                    <option value="VEDIC_MATHS">Vedic Math Teacher</option>
+                    <option value="HANDWRITING">Handwriting Teacher</option>
                  </select>
                </div>
                {status === 'error' && <p className="text-red-500 text-xs font-medium px-1">{errorMsg}</p>}

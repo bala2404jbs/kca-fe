@@ -162,10 +162,10 @@ export default function FranchisePage() {
                  <select required name="franchiseType" value={form.franchiseType} onChange={handleChange}
                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-slate-600 appearance-none">
                     <option value="">Select Target Type</option>
-                    <option value="free">Free Franchise</option>
-                    <option value="lancer">Free Lancer</option>
-                    <option value="unit">Unit Franchise</option>
-                    <option value="master">Master Franchise</option>
+                    <option value="FREE">Free Franchise</option>
+                    <option value="FREELANCER">Free Lancer</option>
+                    <option value="UNIT">Unit Franchise</option>
+                    <option value="MASTER">Master Franchise</option>
                  </select>
                </div>
                {status === 'error' && <p className="text-red-500 text-xs font-medium px-1">{errorMsg}</p>}

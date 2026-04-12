@@ -119,6 +119,14 @@ export async function updateLeadStatus(id: string, status: string, token: string
   return res.json();
 }
 
+export async function deleteLead(id: string, token: string) {
+  const res = await fetch(`${API_URL}/leads/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Failed to delete lead');
+}
+
 // ── CONTACTS ──────────────────────────────────────────────────────────
 export async function createContact(data: {
   firstName: string; lastName: string; email: string; phone: string;
@@ -152,6 +160,14 @@ export async function updateContactStatus(id: string, status: string, token: str
   return res.json();
 }
 
+export async function deleteContact(id: string, token: string) {
+  const res = await fetch(`${API_URL}/contacts/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Failed to delete contact');
+}
+
 // ── FRANCHISE ─────────────────────────────────────────────────────────
 export async function createFranchise(data: {
   fullName: string; phone: string; email: string; franchiseType: string;
@@ -171,6 +187,24 @@ export async function getFranchises(token: string) {
   });
   if (!res.ok) throw new Error('Failed to fetch franchise inquiries');
   return res.json();
+}
+
+export async function updateFranchiseStatus(id: string, status: string, token: string) {
+  const res = await fetch(`${API_URL}/franchise/${id}/status`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ status }),
+  });
+  if (!res.ok) throw new Error('Failed to update status');
+  return res.json();
+}
+
+export async function deleteFranchise(id: string, token: string) {
+  const res = await fetch(`${API_URL}/franchise/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Failed to delete');
 }
 
 // ── TEACHER TRAINING ──────────────────────────────────────────────────
@@ -194,9 +228,27 @@ export async function getTeacherApplications(token: string) {
   return res.json();
 }
 
+export async function updateTeacherStatus(id: string, status: string, token: string) {
+  const res = await fetch(`${API_URL}/teacher-training/${id}/status`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ status }),
+  });
+  if (!res.ok) throw new Error('Failed to update status');
+  return res.json();
+}
+
+export async function deleteTeacherApplication(id: string, token: string) {
+  const res = await fetch(`${API_URL}/teacher-training/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Failed to delete');
+}
+
 // ── INSTITUTIONS ──────────────────────────────────────────────────────
 export async function createInstitution(data: {
-  institutionName: string; contactPerson: string; phone: string; email: string;
+  institutionName: string; contactPerson: string; contactNumber: string; email: string;
 }) {
   const res = await fetch(`${API_URL}/institutions`, {
     method: 'POST',
@@ -213,6 +265,24 @@ export async function getInstitutions(token: string) {
   });
   if (!res.ok) throw new Error('Failed to fetch institution inquiries');
   return res.json();
+}
+
+export async function updateInstitutionStatus(id: string, status: string, token: string) {
+  const res = await fetch(`${API_URL}/institutions/${id}/status`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ status }),
+  });
+  if (!res.ok) throw new Error('Failed to update status');
+  return res.json();
+}
+
+export async function deleteInstitution(id: string, token: string) {
+  const res = await fetch(`${API_URL}/institutions/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Failed to delete');
 }
 
 // ── NEWSLETTER ────────────────────────────────────────────────────────
@@ -232,4 +302,12 @@ export async function getNewsletterSubscribers(token: string) {
   });
   if (!res.ok) throw new Error('Failed to fetch subscribers');
   return res.json();
+}
+
+export async function deleteNewsletterSubscriber(id: string, token: string) {
+  const res = await fetch(`${API_URL}/newsletter/subscribers/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Failed to delete');
 }

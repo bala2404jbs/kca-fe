@@ -23,7 +23,7 @@ const enrollReasons = [
 ];
 
 export default function InstitutionsPage() {
-  const [form, setForm] = useState({ institutionName: '', contactPerson: '', phone: '', email: '' });
+  const [form, setForm] = useState({ institutionName: '', contactPerson: '', contactNumber: '', email: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [media, setMedia] = useState<any>(null);
@@ -184,7 +184,7 @@ export default function InstitutionsPage() {
                </div>
                <div className="space-y-1">
                  <label className="text-[11px] font-bold text-slate-500 uppercase px-1">Phone Number</label>
-                 <input required name="phone" value={form.phone} onChange={handleChange}
+                 <input required name="contactNumber" value={form.contactNumber} onChange={handleChange}
                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                    placeholder="+91" type="tel" />
                </div>
