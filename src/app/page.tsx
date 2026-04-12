@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import { getPageMedia, getMediaUrl } from '../lib/api';
+import { getPageMedia, getMediaUrl, getPublicStats } from '../lib/api';
+import AnimatedNumber from '@/components/AnimatedNumber';
+import TestimonialsSlider from '@/components/TestimonialsSlider';
 
 const advantages = [
   {
@@ -73,9 +75,11 @@ const programs = [
 
 export default function HomePage() {
   const [media, setMedia] = useState<any>(null);
+  const [stats, setStats] = useState<any>(null);
 
   useEffect(() => {
     getPageMedia('home').then(setMedia).catch(console.error);
+    getPublicStats().then(setStats).catch(console.error);
   }, []);
 
   return (
@@ -241,32 +245,15 @@ export default function HomePage() {
 
       {/* Testimonials */}
       <section className="bg-surface py-8">
-        <div className="max-w-3xl mx-auto px-8 text-center space-y-6">
-          <div className="bg-white px-8 py-10 rounded-xl border-b-2 border-outline-variant/10 relative">
-            <div className="flex items-center gap-4 mb-6 justify-center">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-200">
-                <img src="https://ui-avatars.com/api/?name=John&background=random" alt="John" />
-              </div>
-              <span className="font-bold text-lg text-slate-800">John</span>
-            </div>
-            <p className="text-slate-600 text-sm md:text-base leading-relaxed text-center">
-              The abacus class has greatly improved my child&apos;s focus and mental math skills. They now solve calculations quickly and enjoy learning through this fun, hands-on approach.
-            </p>
-            <div className="flex justify-center gap-2 mt-8">
-              <div className="w-2 h-2 rounded-full bg-[#f3123c]"></div>
-              <div className="w-2 h-2 rounded-full bg-slate-200"></div>
-              <div className="w-2 h-2 rounded-full bg-slate-200"></div>
-              <div className="w-2 h-2 rounded-full bg-slate-200"></div>
-              <div className="w-2 h-2 rounded-full bg-slate-200"></div>
-            </div>
-          </div>
-        </div>
+        <TestimonialsSlider />
       </section>
 
       {/* Stats Counter */}
       <section className="py-8 text-center">
         <div className="max-w-screen-2xl mx-auto px-8">
-          <h2 className="text-5xl md:text-6xl font-black text-[#f3123c] mb-4 tracking-tight">29,863</h2>
+          <h2 className="text-5xl md:text-6xl font-black text-[#f3123c] mb-4 tracking-tight">
+            <AnimatedNumber value={stats?.totalHits || 29863} />
+          </h2>
           <p className="text-xl md:text-2xl text-slate-700">website Visitor</p>
         </div>
       </section>

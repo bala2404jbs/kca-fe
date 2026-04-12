@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Lexend } from "next/font/google";
 import "./globals.css";
 import PublicShell from "@/components/PublicShell";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${plusJakarta.variable} ${lexend.variable} bg-surface text-on-surface`}>
+        <AnalyticsTracker />
         <PublicShell>{children}</PublicShell>
       </body>
     </html>

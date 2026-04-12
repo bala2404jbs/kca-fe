@@ -311,3 +311,20 @@ export async function deleteNewsletterSubscriber(id: string, token: string) {
   });
   if (!res.ok) throw new Error('Failed to delete');
 }
+
+// ── ANALYTICS ─────────────────────────────────────────────────────────
+export async function getAnalyticsStats(token: string) {
+  const res = await fetch(`${API_URL}/analytics/stats`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error('Failed to fetch stats');
+  return res.json();
+}
+
+export async function getPublicStats() {
+  const res = await fetch(`${API_URL}/analytics/public-stats`);
+  if (!res.ok) throw new Error('Failed to fetch public stats');
+  return res.json();
+}
+
+

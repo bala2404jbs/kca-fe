@@ -1,6 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { getAnalyticsStats } from '../../lib/api';
+import AnimatedNumber from '@/components/AnimatedNumber';
 
 const DASHBOARD_CARDS = [
   { href: '/admin/leads', icon: 'person_raised_hand', label: 'Book Demo Leads', count: '...', desc: 'Prospective students' },
@@ -13,11 +16,35 @@ const DASHBOARD_CARDS = [
 ];
 
 export default function AdminDashboardPage() {
+  const [stats, setStats] = useState({ totalHits: 0, uniqueVisitors: 0 });
+  const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') || '' : '';
+
+  useEffect(() => {
+    getAnalyticsStats(token).then(setStats).catch(console.error);
+  }, []);
+
   return (
     <div className="p-8 max-w-7xl mx-auto">
-      <div className="mb-12">
-        <h1 className="text-4xl font-black text-slate-800 tracking-tight">Dashboard Overview</h1>
-        <p className="text-slate-500 mt-2 font-medium">Welcome back! Here&apos;s a summary of recent platform activity.</p>
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <h1 className="text-4xl font-black text-slate-800 tracking-tight">Dashboard Overview</h1>
+          <p className="text-slate-500 mt-2 font-medium">Welcome back! Here&apos;s a summary of recent platform activity.</p>
+        </div>
+        
+        <div className="flex gap-4">
+          <div className="bg-white px-6 py-4 rounded-2xl shadow-sm border border-outline-variant/10 flex flex-col items-center min-w-[140px]">
+            <span className="text-3xl font-black text-primary tabular-nums">
+              <AnimatedNumber value={stats.totalHits} />
+            </span>
+            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mt-1">Total Hits</span>
+          </div>
+          <div className="bg-white px-6 py-4 rounded-2xl shadow-sm border border-outline-variant/10 flex flex-col items-center min-w-[140px]">
+            <span className="text-3xl font-black text-slate-800 tabular-nums">
+              <AnimatedNumber value={stats.uniqueVisitors} />
+            </span>
+            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mt-1">Unique Visitors</span>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
