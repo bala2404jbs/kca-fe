@@ -11,23 +11,31 @@ interface FileUploadProps {
 export function FileUpload({ onUploadSuccess, token }: FileUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [uploadStatus, setUploadStatus] = useState({ current: 0, total: 0 });
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    const file = files[0];
 
     try {
-      setIsUploading(true);
       setError(null);
+      const fileList = Array.from(files);
+      setUploadStatus({ current: 0, total: fileList.length });
+      setIsUploading(true);
       
-      // Verification log (internal)
-      console.log('Uploading file:', file.name, 'Size:', file.size, 'Type:', file.type);
-      
-      const data = await uploadImage(file, token);
-      if (onUploadSuccess) {
-        onUploadSuccess(data.url, data.id);
+      let count = 0;
+      for (const file of fileList) {
+        count++;
+        setUploadStatus(prev => ({ ...prev, current: count }));
+        
+        // Verification log (internal)
+        console.log(`Uploading [${count}/${fileList.length}] file:`, file.name);
+        const data = await uploadImage(file, token);
+        if (onUploadSuccess) {
+          onUploadSuccess(data.url, data.id);
+        }
       }
+
       // Reset input
       e.target.value = '';
     } catch (err: any) {
@@ -45,15 +53,20 @@ export function FileUpload({ onUploadSuccess, token }: FileUploadProps) {
             className="material-symbols-outlined text-3xl text-primary mb-2 block" 
             aria-hidden="true"
           >
-            cloud_upload
+            {isUploading ? 'sync' : 'cloud_upload'}
           </span>
           <p className="text-sm text-slate-600 font-medium font-sans">
-            {isUploading ? 'Uploading...' : 'Click to upload or drag and drop'}
+            {isUploading 
+              ? `Uploading ${uploadStatus.current} of ${uploadStatus.total}...` 
+              : 'Click to upload or drag and drop'}
           </p>
-          <p className="text-xs text-slate-500 mt-1 font-sans">PNG, JPG, GIF up to 5MB</p>
+          <p className="text-xs text-slate-500 mt-1 font-sans">
+            {isUploading ? 'Please wait...' : 'You can select multiple gallery images'}
+          </p>
         </div>
         <input 
           type="file" 
+          multiple
           className="hidden" 
           accept="image/*"
           onChange={handleFileChange}

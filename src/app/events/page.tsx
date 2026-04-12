@@ -28,7 +28,7 @@ export default function EventsPage() {
 
   return (
     <main className="pt-32 pb-32 bg-slate-50/50">
-      <section className="px-8 max-w-5xl mx-auto space-y-24">
+      <section className="px-8 max-w-7xl mx-auto space-y-24">
         
         {/* General Events Hero (if set) */}
         {generalEvents?.heroImageUrl && (
@@ -56,7 +56,7 @@ export default function EventsPage() {
               <h2 className="text-3xl font-black text-on-surface tracking-tight">Moments at KCA</h2>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {generalEvents.galleryImages.slice(0, 4).map((img: string, idx: number) => (
+              {generalEvents.galleryImages.map((img: string, idx: number) => (
                 <div key={idx} className="aspect-square relative rounded-3xl overflow-hidden shadow-premium group">
                   <Image src={getMediaUrl(img)} alt={`KCA Moment ${idx}`} fill unoptimized className="object-cover group-hover:scale-110 transition-all" />
                 </div>
@@ -88,7 +88,7 @@ export default function EventsPage() {
                   )}
 
                   {/* Gallery & Videos */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                  <div className="space-y-12">
                     {/* Gallery */}
                     {event.galleryImages?.length > 0 && (
                       <div className="space-y-4">
@@ -96,9 +96,9 @@ export default function EventsPage() {
                           <span className="material-symbols-outlined text-sm">photo_library</span>
                           Gallery
                         </h3>
-                        <div className="grid grid-cols-2 gap-3">
-                          {event.galleryImages.slice(0, 4).map((img: string, idx: number) => (
-                            <div key={idx} className="aspect-[4/3] relative rounded-2xl overflow-hidden border border-outline-variant/10 shadow-sm hover:scale-[1.03] transition-transform cursor-pointer">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                          {event.galleryImages.map((img: string, idx: number) => (
+                            <div key={idx} className="aspect-[4/3] relative rounded-2xl overflow-hidden border border-outline-variant/10 shadow-premium hover:scale-[1.03] transition-transform cursor-pointer">
                               <Image src={getMediaUrl(img)} alt={`${title} image ${idx}`} fill unoptimized className="object-cover" />
                             </div>
                           ))}
@@ -113,8 +113,8 @@ export default function EventsPage() {
                           <span className="material-symbols-outlined text-sm">videocam</span>
                           Videos
                         </h3>
-                        <div className="space-y-4">
-                          {event.youtubeVideoIds.slice(0, 2).map((vid: string, idx: number) => (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          {event.youtubeVideoIds.map((vid: string, idx: number) => (
                             <div key={idx} className="aspect-video relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/10">
                               <iframe
                                 width="100%"
