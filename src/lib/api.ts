@@ -66,13 +66,27 @@ export async function getPageMedia(page: string) {
 export async function updatePageMedia(page: string, data: any, token: string) {
   const res = await fetch(`${API_URL}/page-media/${encodeURIComponent(page)}`, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(data)
   });
-  if (!res.ok) throw new Error((await res.json().catch(() => ({}))).message || 'Failed to update page media');
+  if (!res.ok) throw new Error('Failed to update page media');
   return res.json();
 }
 
+export async function deletePageMedia(page: string, token: string) {
+  const res = await fetch(`${API_URL}/page-media/${encodeURIComponent(page)}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  if (!res.ok) throw new Error('Failed to delete page media');
+}
+
+// ── MISC ──────────────────────────────────────────────────────────────
 // ── LEADS (Book Demo) ─────────────────────────────────────────────────
 export async function createLead(data: {
   parentName: string; childName: string; childAge: number;
